@@ -68,8 +68,6 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 
 	for nagiosCheck.isAlive {
 
-		time.Sleep(nagiosCheck.duration)
-
 		for _, check := range nagiosCheck.checks {
 
 			startTime := time.Now()
@@ -98,7 +96,11 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			a funcational perspective, we don't care about that.
 			*/
 
-			output, _ := cmd.CombinedOutput()
+			output, err := cmd.CombinedOutput()
+			if (cmd.ProcessState == nil){
+				logp.Err("Command Error: %v", err)
+				continue
+			}
 			waitStatus = cmd.ProcessState.Sys().(syscall.WaitStatus)
 
 			logp.Debug("nagioscheck", "Command Returned: %q, exit code %d", output, waitStatus.ExitStatus())
@@ -124,6 +126,9 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			b.Events.PublishEvent(event)
 
 		}
+
+		time.Sleep(nagiosCheck.duration)
+
 	}
 
 	return nil

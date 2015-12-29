@@ -2,16 +2,15 @@
 
 ############################# Input ############################################
 input:
+  interval: "30s"
   checks:
     -
       name: "disks"
-      interval: "5s"
-      cmd: "/usr/local/sbin/check_disk"
-      args: "-w 80 -c 90 -x /dev"
+      cmd: "/usr/lib64/nagios/plugins/check_disk"
+      args: "-w 80 -c 90"
     -
       name: "load"
-      interval: "5s"
-      cmd: "/usr/local/sbin/check_load"
+      cmd: "/usr/lib64/nagios/plugins/check_load"
       args: "-w 5 -c 10"
 
 
@@ -221,7 +220,7 @@ logging:
   # To enable logging to files, to_files option has to be set to true
   files:
     # The directory where the log files will written to.
-    path: /var/log/nagioscmd
+    path: /var/log/nagioscheck
 
     # The name of the files where the logs are written to.
     name: beat
@@ -240,6 +239,6 @@ logging:
 
   # Sets log level. The default log level is error.
   # Available log levels are: critical, error, warning, info, debug
-  level: debug
+  level: warning
 
 
