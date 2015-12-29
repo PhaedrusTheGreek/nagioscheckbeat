@@ -7,15 +7,14 @@ Running Nagios Checks.
 ```
 ############################# Input ############################################
 input:
+  interval: "5s"
   checks:
     -
       name: "disks"
-      interval: "5s"
       cmd: "/usr/local/sbin/check_disk"
       args: "-w 80 -c 90 -x /dev"
     -
       name: "load"
-      interval: "5s"
       cmd: "/usr/local/sbin/check_load"
       args: "-w 5 -c 10"
 ```
