@@ -3,8 +3,6 @@
 NagiosCheckBeat is the [Beat](https://www.elastic.co/products/beats) used for
 Running Nagios Checks.
 
-1 document is published for each check, and then another 1 document for each metric in the check results.
-
 ## Template
 
 To apply the ES Template:
@@ -39,6 +37,8 @@ input:
 
 ## Produces
 
+Firstly, the metrics, individually as documents:
+
 ```
 {
    "took": 1,
@@ -49,36 +49,16 @@ input:
       "failed": 0
    },
    "hits": {
-      "total": 15,
+      "total": 12,
       "max_score": 1,
       "hits": [
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagioscheck",
-            "_id": "AVHz_44dpWMO5Jb2lqbP",
-            "_score": 1,
-            "_source": {
-               "@timestamp": "2015-12-30T17:46:29.194Z",
-               "args": "-w 80 -c 90 -x /dev",
-               "beat": {
-                  "hostname": "max.elastic.co",
-                  "name": "max.elastic.co"
-               },
-               "cmd": "/usr/lib64/nagios/plugins/check_disk",
-               "count": 1,
-               "message": "DISK OK - free space: / 14568 MB (30% inode=94%); /dev/shm 4000 MB (100% inode=99%); /boot 292 MB (65% inode=99%); /home 72598 MB (99% inode=99%);",
-               "status": "OK",
-               "took_ms": 2,
-               "type": "nagioscheck"
-            }
-         },
-         {
-            "_index": "nagioscheckbeat-2015.12.30",
             "_type": "nagiosmetric",
-            "_id": "AVHz_44dpWMO5Jb2lqbQ",
+            "_id": "AVH0P7bdpWMO5Jb2lqbx",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.194Z",
+               "@timestamp": "2015-12-30T18:56:33.924Z",
                "beat": {
                   "hostname": "max.elastic.co",
                   "name": "max.elastic.co"
@@ -98,10 +78,10 @@ input:
          {
             "_index": "nagioscheckbeat-2015.12.30",
             "_type": "nagiosmetric",
-            "_id": "AVHz_44dpWMO5Jb2lqbR",
+            "_id": "AVH0P7bdpWMO5Jb2lqby",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.194Z",
+               "@timestamp": "2015-12-30T18:56:33.924Z",
                "beat": {
                   "hostname": "max.elastic.co",
                   "name": "max.elastic.co"
@@ -121,10 +101,10 @@ input:
          {
             "_index": "nagioscheckbeat-2015.12.30",
             "_type": "nagiosmetric",
-            "_id": "AVHz_44dpWMO5Jb2lqbS",
+            "_id": "AVH0P7bdpWMO5Jb2lqbz",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.194Z",
+               "@timestamp": "2015-12-30T18:56:33.924Z",
                "beat": {
                   "hostname": "max.elastic.co",
                   "name": "max.elastic.co"
@@ -144,10 +124,10 @@ input:
          {
             "_index": "nagioscheckbeat-2015.12.30",
             "_type": "nagiosmetric",
-            "_id": "AVHz_44dpWMO5Jb2lqbT",
+            "_id": "AVH0P7bdpWMO5Jb2lqb0",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.194Z",
+               "@timestamp": "2015-12-30T18:56:33.924Z",
                "beat": {
                   "hostname": "max.elastic.co",
                   "name": "max.elastic.co"
@@ -166,31 +146,11 @@ input:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagioscheck",
-            "_id": "AVHz_44dpWMO5Jb2lqbU",
-            "_score": 1,
-            "_source": {
-               "@timestamp": "2015-12-30T17:46:29.196Z",
-               "args": "-w 5 -c 10",
-               "beat": {
-                  "hostname": "max.elastic.co",
-                  "name": "max.elastic.co"
-               },
-               "cmd": "/usr/lib64/nagios/plugins/check_load",
-               "count": 1,
-               "message": "OK - load average: 0.00, 0.01, 0.05",
-               "status": "OK",
-               "took_ms": 4,
-               "type": "nagioscheck"
-            }
-         },
-         {
-            "_index": "nagioscheckbeat-2015.12.30",
             "_type": "nagiosmetric",
-            "_id": "AVHz_44dpWMO5Jb2lqbV",
+            "_id": "AVH0P7bdpWMO5Jb2lqb2",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.196Z",
+               "@timestamp": "2015-12-30T18:56:33.933Z",
                "beat": {
                   "hostname": "max.elastic.co",
                   "name": "max.elastic.co"
@@ -203,17 +163,17 @@ input:
                "name": "load",
                "type": "nagiosmetric",
                "uom": "",
-               "value": 0,
+               "value": 0.16,
                "warning": 5
             }
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
             "_type": "nagiosmetric",
-            "_id": "AVHz_44dpWMO5Jb2lqbW",
+            "_id": "AVH0P7bepWMO5Jb2lqb3",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.196Z",
+               "@timestamp": "2015-12-30T18:56:33.933Z",
                "beat": {
                   "hostname": "max.elastic.co",
                   "name": "max.elastic.co"
@@ -226,17 +186,17 @@ input:
                "name": "load",
                "type": "nagiosmetric",
                "uom": "",
-               "value": 0.01,
+               "value": 0.05,
                "warning": 5
             }
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
             "_type": "nagiosmetric",
-            "_id": "AVHz_44dpWMO5Jb2lqbX",
+            "_id": "AVH0P7bepWMO5Jb2lqb4",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.196Z",
+               "@timestamp": "2015-12-30T18:56:33.933Z",
                "beat": {
                   "hostname": "max.elastic.co",
                   "name": "max.elastic.co"
@@ -249,17 +209,166 @@ input:
                "name": "load",
                "type": "nagiosmetric",
                "uom": "",
-               "value": 0.05,
+               "value": 0.06,
                "warning": 5
             }
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagioscheck",
-            "_id": "AVHz_5GZpWMO5Jb2lqbY",
+            "_type": "nagiosmetric",
+            "_id": "AVH0P7pTpWMO5Jb2lqb6",
             "_score": 1,
             "_source": {
-               "@timestamp": "2015-12-30T17:46:29.200Z",
+               "@timestamp": "2015-12-30T18:56:33.948Z",
+               "beat": {
+                  "hostname": "max.elastic.co",
+                  "name": "max.elastic.co"
+               },
+               "count": 1,
+               "critical": 0,
+               "label": "tps",
+               "max": 0,
+               "min": 0,
+               "name": "io",
+               "type": "nagiosmetric",
+               "uom": "",
+               "value": 0,
+               "warning": 0
+            }
+         },
+         {
+            "_index": "nagioscheckbeat-2015.12.30",
+            "_type": "nagiosmetric",
+            "_id": "AVH0P7pTpWMO5Jb2lqb7",
+            "_score": 1,
+            "_source": {
+               "@timestamp": "2015-12-30T18:56:33.948Z",
+               "beat": {
+                  "hostname": "max.elastic.co",
+                  "name": "max.elastic.co"
+               },
+               "count": 1,
+               "critical": 0,
+               "label": "rtps",
+               "max": 0,
+               "min": 0,
+               "name": "io",
+               "type": "nagiosmetric",
+               "uom": "",
+               "value": 0,
+               "warning": 0
+            }
+         },
+         {
+            "_index": "nagioscheckbeat-2015.12.30",
+            "_type": "nagiosmetric",
+            "_id": "AVH0P7pTpWMO5Jb2lqb8",
+            "_score": 1,
+            "_source": {
+               "@timestamp": "2015-12-30T18:56:33.948Z",
+               "beat": {
+                  "hostname": "max.elastic.co",
+                  "name": "max.elastic.co"
+               },
+               "count": 1,
+               "critical": 0,
+               "label": "wtps",
+               "max": 0,
+               "min": 0,
+               "name": "io",
+               "type": "nagiosmetric",
+               "uom": "",
+               "value": 0,
+               "warning": 0
+            }
+         }
+      ]
+   }
+}
+```
+
+Secondly, the results of the actual Nagios Checks, as a separate *type*
+
+```
+{
+   "took": 1,
+   "timed_out": false,
+   "_shards": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+   },
+   "hits": {
+      "total": 4,
+      "max_score": 1,
+      "hits": [
+         {
+            "_index": "nagioscheckbeat-2015.12.30",
+            "_type": "nagioscheck",
+            "_id": "AVH0P7bdpWMO5Jb2lqbv",
+            "_score": 1,
+            "_source": {
+               "@timestamp": "2015-12-30T18:56:33.922Z",
+               "args": "0 Hello",
+               "beat": {
+                  "hostname": "max.elastic.co",
+                  "name": "max.elastic.co"
+               },
+               "cmd": "/usr/lib64/nagios/plugins/check_dummy",
+               "count": 1,
+               "message": "OK: Hello\n",
+               "status": "OK",
+               "took_ms": 2,
+               "type": "nagioscheck"
+            }
+         },
+         {
+            "_index": "nagioscheckbeat-2015.12.30",
+            "_type": "nagioscheck",
+            "_id": "AVH0P7bdpWMO5Jb2lqbw",
+            "_score": 1,
+            "_source": {
+               "@timestamp": "2015-12-30T18:56:33.924Z",
+               "args": "-w 80 -c 90 -x /dev",
+               "beat": {
+                  "hostname": "max.elastic.co",
+                  "name": "max.elastic.co"
+               },
+               "cmd": "/usr/lib64/nagios/plugins/check_disk",
+               "count": 1,
+               "message": "DISK OK - free space: / 14568 MB (30% inode=94%); /dev/shm 4000 MB (100% inode=99%); /boot 292 MB (65% inode=99%); /home 72598 MB (99% inode=99%);",
+               "status": "OK",
+               "took_ms": 8,
+               "type": "nagioscheck"
+            }
+         },
+         {
+            "_index": "nagioscheckbeat-2015.12.30",
+            "_type": "nagioscheck",
+            "_id": "AVH0P7bdpWMO5Jb2lqb1",
+            "_score": 1,
+            "_source": {
+               "@timestamp": "2015-12-30T18:56:33.933Z",
+               "args": "-w 5 -c 10",
+               "beat": {
+                  "hostname": "max.elastic.co",
+                  "name": "max.elastic.co"
+               },
+               "cmd": "/usr/lib64/nagios/plugins/check_load",
+               "count": 1,
+               "message": "OK - load average: 0.16, 0.05, 0.06",
+               "status": "OK",
+               "took_ms": 14,
+               "type": "nagioscheck"
+            }
+         },
+         {
+            "_index": "nagioscheckbeat-2015.12.30",
+            "_type": "nagioscheck",
+            "_id": "AVH0P7pTpWMO5Jb2lqb5",
+            "_score": 1,
+            "_source": {
+               "@timestamp": "2015-12-30T18:56:33.948Z",
                "args": "io_transfer",
                "beat": {
                   "hostname": "max.elastic.co",
@@ -269,7 +378,7 @@ input:
                "count": 1,
                "message": "sar OK ",
                "status": "OK",
-               "took_ms": 1039,
+               "took_ms": 1062,
                "type": "nagioscheck"
             }
          }
@@ -277,3 +386,6 @@ input:
    }
 }
 ```
+
+
+
