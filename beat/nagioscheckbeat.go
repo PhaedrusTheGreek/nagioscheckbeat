@@ -77,21 +77,26 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			startTime := time.Now()
 			startMs := startTime.UnixNano() / int64(time.Millisecond)
 
+			args := ""
+			if check.Args != nil { 
+			  	args = *check.Args
+			}
+
 			check_event := common.MapStr{
 				"@timestamp": common.Time(startTime),
 				"type":       "nagioscheck",
 				"cmd":        *check.Cmd,
-				"args":       *check.Args,
+				"args":       args,
 			}
 
 
 			logp.Debug("nagioscheck", "Running Command: %q", *check.Cmd)
 
-			//arg_fields := strings.Fields(*check.Args)
-			arg_fields, err := shellwords.Parse(*check.Args) // Smarter
+			//arg_fields := strings.Fields(args)
+			arg_fields, err := shellwords.Parse(args) // Smarter
 
 			if err != nil {
-				logp.Err("Could not parse args %q", *check.Args)
+				logp.Err("Could not parse args %q", args)
 			}
 
 			cmd := exec.Command(*check.Cmd, arg_fields...)

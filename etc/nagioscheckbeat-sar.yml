@@ -1,5 +1,8 @@
 ################### NagiosCheckBeat Configuration Example #########################
 
+# This example demostrates how one could integrate with CHECK-SAR-PERF
+# https://raw.githubusercontent.com/dnsmichi/icinga-plugins/master/scripts/check_sar_perf.py
+
 ############################# Input ############################################
 input:
   interval: "1m"
@@ -9,20 +12,46 @@ input:
       cmd: "/usr/lib64/nagios/plugins/check_dummy"
       args: "0 Hello"
     -
-      name: "disks"
-      cmd: "/usr/lib64/nagios/plugins/check_disk"
-      args: "-w 80 -c 90"
+      name: "pagestat"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "pagestat"
     -
-      name: "load"
-      cmd: "/usr/lib64/nagios/plugins/check_load"
-      args: "-w 5 -c 10"
+      name: "io"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "io_transfer"
     -
-      name: "proc"
-      cmd: "/usr/lib64/nagios/plugins/check_procs"
+      name: "memory_util"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "memory_util"
     -
-      name: "swap"
-      cmd: "/usr/lib64/nagios/plugins/check_swap"
-      args: "-w 90% -c 50%"
+      name: "kernel"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "kernel"
+    -
+      name: "cpu"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "cpu"
+    -
+      name: "memory_stat"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "memory_stat"
+    -
+      name: "queueln_load"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "queueln_load"
+    -
+      name: "swap_util"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "swap_util"
+    -
+      name: "swap_stat"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "swap_stat"
+    -
+      name: "task"
+      cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
+      args: "task"
+
 
 
 ###############################################################################

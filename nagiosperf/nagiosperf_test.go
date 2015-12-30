@@ -9,10 +9,10 @@ func TestParse(t *testing.T) {
 		in   string
 		want []Perf
 	}{
-		{"load1=0.000;5.000;9.000;0; load5=0.000;5.000;9.000;0; load15=0.000;5.000;9.000;0;", []Perf{
-			{Label: "load1", Value: 0, Warning: 5, Critical: 9, Min: 0},
-			{Label: "load5", Value: 0, Warning: 5, Critical: 9, Min: 0},
-			{Label: "load15", Value: 0, Warning: 5, Critical: 9, Min: 0},
+		{"load1=0.010;5.000;9.000;0; load5=0.060;5.000;9.000;0; load15=2.010;5.000;9.000;0;", []Perf{
+			{Label: "load1", Value: 0.01, Warning: 5, Critical: 9, Min: 0},
+			{Label: "load5", Value: 0.06, Warning: 5, Critical: 9, Min: 0},
+			{Label: "load15", Value: 2.01, Warning: 5, Critical: 9, Min: 0},
 		}},
 		{"users=4;20;50;0", []Perf{
 			{Label: "users", Value: 4, Warning: 20, Critical: 50, Min: 0},
@@ -36,6 +36,7 @@ func TestParse(t *testing.T) {
 			continue
 		}
 
+		t.Errorf("ParsePerfString(%q):\n WANT: %v\n GOT: %v", c.in, c.want, got)
 		if !reflect.DeepEqual(c.want, got) {
 			t.Errorf("ParsePerfString(%q):\n WANT: %v\n GOT: %v", c.in, c.want, got)
 			continue
