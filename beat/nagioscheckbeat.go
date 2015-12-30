@@ -76,11 +76,17 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 
 			startTime := time.Now()
 			startMs := startTime.UnixNano() / int64(time.Millisecond)
-			event := common.MapStr{
+
+			check_event := common.MapStr{
 				"@timestamp": common.Time(startTime),
 				"type":       "nagioscheck",
 				"cmd":        *check.Cmd,
 				"args":       *check.Args,
+			}
+
+			metric_event := common.MapStr{
+				"@timestamp": common.Time(startTime),
+				"type":       "nagiosmetric",
 			}
 
 			logp.Debug("nagioscheck", "Running Command: %q", *check.Cmd)
@@ -110,9 +116,9 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			logp.Debug("nagioscheck", "Command Returned: %q, exit code %d", output, waitStatus.ExitStatus())
 
 			parts := strings.Split(string(output), "|")
-			//event["message"] = parts[0] // Could be Optional?  But Adds a lot of extra data
-			event["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
-			event["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
+			check_event["message"] = parts[0]
+			check_event["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
+			check_event["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
 
 			if len(parts) > 1 {
 				logp.Debug("nagioscheck", "Parsing: %q", parts[1])
@@ -123,7 +129,12 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 					}
 				} else {
 					logp.Debug("nagioscheck", "Command Returned '%d' Perf Metrics: %v", len(perfs), perfs)
-					nagiosCheck.publish(*check.Name, perfs, event) // copy the event each time
+					nagiosCheck.events.PublishEvent(check_event)
+					for _, perf := range perfs {
+						metric := common.MapStr{}
+						metric[*check.Name] = perf
+						nagiosCheck.events.PublishEvent(common.MapStrUnion(metric_event, metric))
+					}
 				}
 			}
 
@@ -134,15 +145,6 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 	}
 
 	return nil
-}
-
-func (nagiosCheck *NagiosCheckBeat) publish(name string, perfs []nagiosperf.Perf, event common.MapStr) {
-
-	for _, perf := range perfs {
-		event[name] = perf
-		nagiosCheck.events.PublishEvent(event)
-	}
-
 }
 
 func (nagiosCheck *NagiosCheckBeat) Cleanup(b *beat.Beat) error {
