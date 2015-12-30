@@ -1,6 +1,7 @@
 package nagiosperf
 
 /*
+Partial Go Implementation of:
 http://cpansearch.perl.org/src/NIERLEIN/Monitoring-Plugin-0.39/lib/Monitoring/Plugin/Performance.pm
 */
 
