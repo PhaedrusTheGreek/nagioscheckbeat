@@ -3,6 +3,15 @@
 NagiosCheckBeat is the [Beat](https://www.elastic.co/products/beats) used for
 Running Nagios Checks.
 
+
+## Template
+
+To apply the ES Template:
+
+```
+curl -XPUT 'http://localhost:9200/_template/nagioscheckbeat' -d@etc/nagioscheckbeat.template.json
+```
+
 ## Configuration
 ```
 ############################# Input ############################################

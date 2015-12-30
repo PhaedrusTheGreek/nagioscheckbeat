@@ -84,10 +84,6 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 				"args":       *check.Args,
 			}
 
-			metric_event := common.MapStr{
-				"@timestamp": common.Time(startTime),
-				"type":       "nagiosmetric",
-			}
 
 			logp.Debug("nagioscheck", "Running Command: %q", *check.Cmd)
 
@@ -131,9 +127,22 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 					logp.Debug("nagioscheck", "Command Returned '%d' Perf Metrics: %v", len(perfs), perfs)
 					nagiosCheck.events.PublishEvent(check_event)
 					for _, perf := range perfs {
-						metric := common.MapStr{}
-						metric[*check.Name] = perf
-						nagiosCheck.events.PublishEvent(common.MapStrUnion(metric_event, metric))
+
+						metric_event := common.MapStr{
+						 "@timestamp" : common.Time(startTime),
+						 "type"       : "nagiosmetric",
+						 "name"       :	*check.Name,
+						 "label"      :	perf.Label,
+						 "uom"        :	perf.Uom,
+						 "value"      : perf.Value,
+						 "min"        : perf.Min,
+						 "max"        : perf.Max,
+						 "warning"    : perf.Warning,
+						 "critical"   : perf.Critical,
+						}
+
+						nagiosCheck.events.PublishEvent(metric_event)
+
 					}
 				}
 			}

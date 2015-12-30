@@ -6,26 +6,11 @@
       "number_of_replicas": 1
    },
    "mappings": {
-      "_default_": {
+      "nagiosmetric": {
          "_all": {
-            "enabled": true,
-            "omit_norms": true
+            "enabled": false
          },
          "dynamic_templates": [
-            {
-               "message_field": {
-                  "match": "message",
-                  "match_mapping_type": "string",
-                  "mapping": {
-                     "type": "string",
-                     "index": "analyzed",
-                     "omit_norms": true,
-                     "fielddata": {
-                        "format": "disabled"
-                     }
-                  }
-               }
-            },
             {
                "string_fields": {
                   "match": "*",
@@ -36,83 +21,48 @@
                      "doc_values": true
                   }
                }
+            }
+         ],
+         "properties": {
+            "@timestamp": {
+               "type": "date",
+               "doc_values": true
             },
-            {
-               "float_fields": {
-                  "match": "*",
-                  "match_mapping_type": "float",
-                  "mapping": {
-                     "type": "float",
-                     "doc_values": true
-                  }
-               }
+            "value": {
+               "type": "double",
+               "doc_values": true
             },
-            {
-               "double_fields": {
-                  "match": "*",
-                  "match_mapping_type": "double",
-                  "mapping": {
-                     "type": "double",
-                     "doc_values": true
-                  }
-               }
+            "min": {
+               "type": "double",
+               "doc_values": true
             },
-            {
-               "byte_fields": {
-                  "match": "*",
-                  "match_mapping_type": "byte",
-                  "mapping": {
-                     "type": "byte",
-                     "doc_values": true
-                  }
-               }
+            "max": {
+               "type": "double",
+               "doc_values": true
             },
-            {
-               "short_fields": {
-                  "match": "*",
-                  "match_mapping_type": "short",
-                  "mapping": {
-                     "type": "short",
-                     "doc_values": true
-                  }
-               }
+            "critical": {
+               "type": "double",
+               "doc_values": true
             },
+            "warning": {
+               "type": "double",
+               "doc_values": true
+            }
+         }
+      },
+      "nagioscheck": {
+         "_all": {
+            "enabled": true,
+            "omit_norms": true
+         },
+         "dynamic_templates": [
             {
-               "integer_fields": {
+               "string_fields": {
                   "match": "*",
-                  "match_mapping_type": "integer",
+                  "match_mapping_type": "string",
                   "mapping": {
-                     "type": "integer",
-                     "doc_values": true
-                  }
-               }
-            },
-            {
-               "long_fields": {
-                  "match": "*",
-                  "match_mapping_type": "long",
-                  "mapping": {
-                     "type": "long",
-                     "doc_values": true
-                  }
-               }
-            },
-            {
-               "date_fields": {
-                  "match": "*",
-                  "match_mapping_type": "date",
-                  "mapping": {
-                     "type": "date",
-                     "doc_values": true
-                  }
-               }
-            },
-            {
-               "geo_point_fields": {
-                  "match": "*",
-                  "match_mapping_type": "geo_point",
-                  "mapping": {
-                     "type": "geo_point",
+                     "type": "string",
+                     "index": "not_analyzed",
                      "doc_values": true
                   }
                }
@@ -122,9 +72,16 @@
             "@timestamp": {
                "type": "date",
                "doc_values": true
+            },
+            "message": {
+               "type": "string",
+               "index": "analyzed",
+               "omit_norms": true,
+               "fielddata": {
+                  "format": "disabled"
+               }
             }
          }
       }
    }
 }
-
