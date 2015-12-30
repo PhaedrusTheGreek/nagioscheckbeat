@@ -104,7 +104,8 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 
 			/* Go will return 'err' if the command exits abnormally (non-zero return code).
 			Nagios commands always will exit abnormally when a check fails, so from
-			a funcational perspective, we don't care about that.
+			a funcational perspective, this doesn't help us.  Instead, if the ProcessState is nil,
+			that tells us that the command coulnd't run for some reason, which does help.
 			*/
 
 			output, err := cmd.CombinedOutput()
@@ -121,6 +122,9 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			check_event["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
 			check_event["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
 
+			// publish the check result, even if there is no perf data
+			nagiosCheck.events.PublishEvent(check_event)
+
 			if len(parts) > 1 {
 				logp.Debug("nagioscheck", "Parsing: %q", parts[1])
 				perfs, errors := nagiosperf.ParsePerfString(parts[1])
@@ -131,8 +135,6 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 				} else {
 
 					logp.Debug("nagioscheck", "Command Returned '%d' Perf Metrics: %v", len(perfs), perfs)
-
-					nagiosCheck.events.PublishEvent(check_event)
 
 					for _, perf := range perfs {
 
