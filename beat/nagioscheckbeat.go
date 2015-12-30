@@ -124,8 +124,11 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 						logp.Err("Command Error: %v", err)
 					}
 				} else {
+
 					logp.Debug("nagioscheck", "Command Returned '%d' Perf Metrics: %v", len(perfs), perfs)
+
 					nagiosCheck.events.PublishEvent(check_event)
+
 					for _, perf := range perfs {
 
 						metric_event := common.MapStr{
