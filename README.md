@@ -21,15 +21,15 @@ input:
   checks:
     -
       name: "heartbeat"
-      cmd: "/usr/local/sbin/check_dummy"
+      cmd: "/usr/lib64/nagios/plugins/check_dummy"
       args: "0 Checking In!"
     -
       name: "disks"
-      cmd: "/usr/local/sbin/check_disk"
+      cmd: "/usr/lib64/nagios/plugins/check_disk"
       args: "-w 80 -c 90 -x /dev"
     -
       name: "load"
-      cmd: "/usr/local/sbin/check_load"
+      cmd: "/usr/lib64/nagios/plugins/check_load"
       args: "-w 5 -c 10"
     -
       name: "io"
