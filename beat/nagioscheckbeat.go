@@ -6,6 +6,7 @@ import (
 	"github.com/elastic/libbeat/cfgfile"
 	"github.com/elastic/libbeat/common"
 	"github.com/elastic/libbeat/logp"
+	"github.com/elastic/libbeat/publisher"
 	"github.com/mattn/go-shellwords"
 	"os/exec"
 	"strings"
@@ -14,13 +15,16 @@ import (
 )
 
 type NagiosCheckBeat struct {
-	// from configuration
+	// Config
 	interval string
 	checks   []NagiosCheckConfig
 
-	// state
+	// State
 	isAlive  bool
 	duration time.Duration
+
+	// Handles
+	events publisher.Client
 }
 
 func New() *NagiosCheckBeat {
@@ -56,7 +60,7 @@ func (nagiosCheck *NagiosCheckBeat) Config(b *beat.Beat) error {
 
 func (nagiosCheck *NagiosCheckBeat) Setup(b *beat.Beat) error {
 
-	//TODO: Check if target script exists / test run
+	nagiosCheck.events = b.Events
 
 	return nil
 
@@ -82,7 +86,7 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			logp.Debug("nagioscheck", "Running Command: %q", *check.Cmd)
 
 			//arg_fields := strings.Fields(*check.Args)
-			arg_fields, err := shellwords.Parse(*check.Args)
+			arg_fields, err := shellwords.Parse(*check.Args) // Smarter
 
 			if err != nil {
 				logp.Err("Could not parse args %q", *check.Args)
@@ -97,7 +101,7 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			*/
 
 			output, err := cmd.CombinedOutput()
-			if (cmd.ProcessState == nil){
+			if cmd.ProcessState == nil {
 				logp.Err("Command Error: %v", err)
 				continue
 			}
@@ -106,7 +110,10 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 			logp.Debug("nagioscheck", "Command Returned: %q, exit code %d", output, waitStatus.ExitStatus())
 
 			parts := strings.Split(string(output), "|")
-			event["message"] = parts[0]
+			//event["message"] = parts[0] // Could be Optional?  But Adds a lot of extra data
+			event["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
+			event["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
+
 			if len(parts) > 1 {
 				logp.Debug("nagioscheck", "Parsing: %q", parts[1])
 				perfs, errors := nagiosperf.ParsePerfString(parts[1])
@@ -116,14 +123,9 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 					}
 				} else {
 					logp.Debug("nagioscheck", "Command Returned '%d' Perf Metrics: %v", len(perfs), perfs)
-					addPerfsToEvent(*check.Name, perfs, &event)
+					nagiosCheck.publish(*check.Name, perfs, event) // copy the event each time
 				}
 			}
-
-			event["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
-			event["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
-
-			b.Events.PublishEvent(event)
 
 		}
 
@@ -134,15 +136,12 @@ func (nagiosCheck *NagiosCheckBeat) Run(b *beat.Beat) error {
 	return nil
 }
 
-func addPerfsToEvent(name string, perfs []nagiosperf.Perf, event *common.MapStr) {
-
-	var data = common.MapStr{}
+func (nagiosCheck *NagiosCheckBeat) publish(name string, perfs []nagiosperf.Perf, event common.MapStr) {
 
 	for _, perf := range perfs {
-		data[string(perf.Label)] = perf
+		event[name] = perf
+		nagiosCheck.events.PublishEvent(event)
 	}
-
-	(*event)[name] = data
 
 }
 
