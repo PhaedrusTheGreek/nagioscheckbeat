@@ -3,6 +3,7 @@
 NagiosCheckBeat is the [Beat](https://www.elastic.co/products/beats) used for
 Running Nagios Checks.
 
+1 document is published for each check, and then another 1 document for each metric in the check results.
 
 ## Template
 
