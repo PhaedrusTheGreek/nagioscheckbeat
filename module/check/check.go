@@ -5,6 +5,7 @@ import (
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/module"
 	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/metricbeat/helper"
 )
 
@@ -15,11 +16,11 @@ func init() {
 // Metric object
 var Metric = helper.NewMetric("check", Check{}, module.Module)
 
-var Config = &beat.NagiosCheckConfig{}
+var Config = &config.NagiosCheckConfig{}
 
 type Check struct {
 	helper.MetricConfig
-	Config beat.NagiosCheckConfig
+	Config config.NagiosCheckConfig
 }
 
 func (e Check) Setup() {
@@ -27,7 +28,11 @@ func (e Check) Setup() {
 }
 
 func (e Check) Fetch() []common.MapStr {
-	check := NagiosCheck{}
+	check := check.NagiosCheck{}
 	check.Setup(Config)
-	return check.Check()
+	events, err := check.Check()
+	if err != nil {
+		logp.Err("Error On Command: %q: %v", Config.Name, err)
+	}
+	return events
 }

@@ -36,7 +36,6 @@ func TestParse(t *testing.T) {
 			continue
 		}
 
-		t.Errorf("ParsePerfString(%q):\n WANT: %v\n GOT: %v", c.in, c.want, got)
 		if !reflect.DeepEqual(c.want, got) {
 			t.Errorf("ParsePerfString(%q):\n WANT: %v\n GOT: %v", c.in, c.want, got)
 			continue
