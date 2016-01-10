@@ -1,7 +1,7 @@
 package check
 
 import (
-	"github.com/PhaedrusTheGreek/nagioscheckbeat/beat"
+	"github.com/PhaedrusTheGreek/nagioscheckbeat/check"
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/module"
 	"github.com/elastic/beats/libbeat/common"
@@ -27,5 +27,7 @@ func (e Check) Setup() {
 }
 
 func (e Check) Fetch() []common.MapStr {
-	return beat.Check(Config)
+	check := NagiosCheck{}
+	check.Setup(Config)
+	return check.Check()
 }
