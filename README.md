@@ -15,24 +15,28 @@ curl -XPUT 'http://localhost:9200/_template/nagioscheckbeat' -d@etc/nagioscheckb
 ```
 ############################# Input ############################################
 input:
-  interval: "30s"
   checks:
     -
       name: "heartbeat"
       cmd: "/usr/lib64/nagios/plugins/check_dummy"
       args: "0 Checking In!"
+      period: "10s"
     -
       name: "disks"
       cmd: "/usr/lib64/nagios/plugins/check_disk"
       args: "-w 80 -c 90 -x /dev"
+      period: "1h"
     -
       name: "load"
       cmd: "/usr/lib64/nagios/plugins/check_load"
       args: "-w 5 -c 10"
+      period: "1m"
     -
       name: "io"
       cmd: "/usr/lib64/nagios/plugins/check_sar_perf.py"
       args: "io_transfer"
+      period: "30s"
+      enabled: false
 ```
 
 ## Produces
