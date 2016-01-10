@@ -14,6 +14,6 @@ install-cfg:
 	# binary
 	cp etc/nagioscheckbeat.yml $(PREFIX)/nagioscheckbeat-binary.yml
 	# darwin
-	cp etc/nagioscheckbeat.yml $(PREFIX)/nagioscheckbeat-darwin.yml
+	cp etc/nagioscheckbeat.osx.yml $(PREFIX)/nagioscheckbeat-darwin.yml
 	# win
 	cp etc/nagioscheckbeat.yml $(PREFIX)/nagioscheckbeat-win.yml
