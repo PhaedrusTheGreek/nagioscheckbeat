@@ -8,7 +8,8 @@
    "mappings": {
       "nagiosmetric": {
          "_all": {
-            "enabled": false
+            "enabled": false,
+            "omit_norms": true
          },
          "dynamic_templates": [
             {
