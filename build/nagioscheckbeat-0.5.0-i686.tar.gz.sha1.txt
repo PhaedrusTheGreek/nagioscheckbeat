@@ -1,0 +1,1 @@
+697f0d5cc09a9ab8700427f8e4ba5fd4576100f1  nagioscheckbeat-0.5.0-i686.tar.gz
