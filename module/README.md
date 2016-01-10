@@ -8,7 +8,7 @@ import (
 )
 ```
 
-### Configure the Module and the Check(s)
+### Configure the Module and the Check
 
 ```
 metricbeat:
