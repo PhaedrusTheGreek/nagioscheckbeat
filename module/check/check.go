@@ -2,6 +2,7 @@ package check
 
 import (
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/beat"
+	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/module"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/metricbeat/helper"
