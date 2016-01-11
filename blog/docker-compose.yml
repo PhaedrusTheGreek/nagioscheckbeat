@@ -1,0 +1,26 @@
+elasticsearch:
+  image: elasticsearch:latest
+  command: elasticsearch -Des.network.host=0.0.0.0
+  ports:
+    - "9200:9200"
+db:
+  image: orchardup/mysql
+  links:
+   - elasticsearch
+  environment:
+    MYSQL_DATABASE: testdb1
+redis:
+  image: redis
+  links:
+   - elasticsearch
+  ports:
+   - "6379"
+web:
+  links:
+   - elasticsearch
+  restart: always
+  build: apache
+  ports:
+   - "80:80"
+  volumes:
+   - /var/www
