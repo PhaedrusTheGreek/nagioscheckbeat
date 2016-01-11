@@ -1,0 +1,1 @@
+fe691347c0a7c061406fc15fc0ccda63e1de32c8  nagioscheckbeat-0.5.1-windows.zip
