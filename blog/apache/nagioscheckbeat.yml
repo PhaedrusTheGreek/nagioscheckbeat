@@ -7,22 +7,12 @@ input:
       name: "heartbeat"
       cmd: "/usr/lib64/nagios/plugins/check_dummy"
       args: "0 Hello"
+      period: "10s"
     -
-      name: "disks"
-      cmd: "/usr/lib64/nagios/plugins/check_disk"
-      args: "-w 80 -c 90"
-    -
-      name: "load"
-      cmd: "/usr/lib64/nagios/plugins/check_load"
-      args: "-w 5 -c 10"
-    -
-      name: "proc"
-      cmd: "/usr/lib64/nagios/plugins/check_procs"
-    -
-      name: "swap"
-      cmd: "/usr/lib64/nagios/plugins/check_swap"
-      args: "-w 90% -c 50%"
-
+      period: "30s"
+      name: "apache"
+      cmd: "/usr/lib64/nagios/plugins/check_apachestatus.pl"
+      args: "-H localhost"
 
 ###############################################################################
 ############################# Libbeat Config ##################################
@@ -40,7 +30,7 @@ output:
     # Scheme and port can be left out and will be set to the default (http and 9200)
     # In case you specify and additional path, the scheme is required: http://localhost:9200/path
     # IPv6 addresses should always be defined as: https://[2001:db8::1]:9200
-    hosts: ["localhost:9200"]
+    hosts: ["elasticsearch:9200"]
 
     # Optional protocol and basic auth credentials. These are deprecated.
     #protocol: "https"
@@ -248,6 +238,6 @@ logging:
 
   # Sets log level. The default log level is error.
   # Available log levels are: critical, error, warning, info, debug
-  level: warning
+  level: debug
 
 

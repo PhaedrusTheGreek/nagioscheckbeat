@@ -1,1 +1,0 @@
-4d16b0087c26381cd15d94eb7ab6cc3b283b0df6  nagioscheckbeat-0.5.0-windows.zip

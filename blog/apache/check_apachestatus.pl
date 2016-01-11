@@ -6,6 +6,20 @@
 # Licence : GPL - http://www.fsf.org/licenses/gpl.txt
 #############################################################
 #
+# 20080912 <karsten at behrens dot in> v1.2
+#          added output of Requests/sec, kB/sec, kB/request  
+#          changed perfdata output so that PNP accepts it
+#          http://www.behrens.in/download/check_apachestatus.pl.txt
+#
+# 20080930 <karsten at behrens dot in> v1.3
+#          Fixed bug in perfdata regexp when Apache output was
+#          "nnn B/sec" instead of "nnn kB/sec"
+#
+# 20081231 <geoff.mcqueen at hiivesystems dot com > v1.4
+#          Made the scale logic more robust to byte only, kilobyte
+#          and provided capacity for MB and GB scale options
+#          on bytes per second and bytes per request (untested)
+#
 # help : ./check_apachestatus.pl -h
 
 use strict;
@@ -15,13 +29,13 @@ use Time::HiRes qw(gettimeofday tv_interval);
 
 # Nagios specific
 
-use lib "/usr/local/nagios/libexec";
+use lib "/usr/lib/nagios/plugins";
 use utils qw(%ERRORS $TIMEOUT);
 #my %ERRORS=('OK'=>0,'WARNING'=>1,'CRITICAL'=>2,'UNKNOWN'=>3,'DEPENDENT'=>4);
 
 # Globals
 
-my $Version='1.0';
+my $Version='1.4';
 my $Name=$0;
 
 my $o_host =		undef; 		# hostname 
@@ -78,7 +92,7 @@ Note :
         UNKNOWN  if we aren't able to connect to the apache server's status page
 
 Perfdata legend:
-"_;S;R;W;K;D;C;L;G;I;."
+"_;S;R;W;K;D;C;L;G;I;.;1;2;3"
 _ : Waiting for Connection
 S : Starting up
 R : Reading Request
@@ -90,6 +104,9 @@ L : Logging
 G : Gracefully finishing
 I : Idle cleanup of worker
 . : Open slot with no current process
+1 : Requests per sec
+2 : kB per sec
+3 : kB per Request
 
 EOT
 }
@@ -145,6 +162,37 @@ if ($response->is_success) {
     $i++;
   }
 
+  # get requests/sec, kb/sec, kb/req
+  $i = 0;
+  my $ReqPerSec=undef;
+  my $KbPerSec=undef;
+  my $KbPerReq=undef;
+
+  my $KbRatios = {
+	g => 1048576,
+	m => 1024,
+	k => 1,
+	empty => 0.0009765625,
+  };
+
+  while (($i < @webcontentarr) && ((!defined($ReqPerSec)) || (!defined($KbPerSec)) || (!defined($KbPerReq)))) {
+    if ($webcontentarr[$i] =~ /([0-9]*\.?[0-9]+)\s+requests\/sec\s+-\s+([0-9]*\.?[0-9]+)\s+(\w)*B\/second\s+-\s+([0-9]*\.?[0-9]+)\s+(\w)*B\/request/) {
+      my ($Requests, $bPerSec, $sPerSec, $bPerReq, $sPerReq) = ($webcontentarr[$i] =~ /([0-9]*\.?[0-9]+)\s+requests\/sec\s+-\s+([0-9]*\.?[0-9]+)\s+(\w)*B\/second\s+-\s+([0-9]*\.?[0-9]+)\s+(\w)*B\/request/);
+      $ReqPerSec=$Requests;
+      if ($sPerSec) {
+        $KbPerSec = $bPerSec*$KbRatios->{lc($sPerSec)};
+      } else {
+        $KbPerSec = $bPerSec*$KbRatios->{empty};
+      }
+      if ($sPerReq) {
+        $KbPerReq = $bPerReq*$KbRatios->{lc($sPerReq)};
+      } else {
+        $KbPerReq = $bPerReq*$KbRatios->{empty};
+      }
+    }
+    $i++;
+  }
+
   # Get the scoreboard
   my $ScoreBoard = "";
   $i = 0;
@@ -172,17 +220,17 @@ if ($response->is_success) {
   my $CountOpenSlots = ($ScoreBoard =~ tr/\.//);
   if (defined($o_crit_level) && ($o_crit_level != -1)) {
     if (($CountOpenSlots + $IdleWorkers) <= $o_crit_level) {
-      printf("CRITICAL %f seconds response time. Idle %d, busy %d, open slots %d | %d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n", $timeelapsed, $IdleWorkers, $BusyWorkers, $CountOpenSlots, ($ScoreBoard =~ tr/\_//), ($ScoreBoard =~ tr/S//),($ScoreBoard =~ tr/R//),($ScoreBoard =~ tr/W//),($ScoreBoard =~ tr/K//),($ScoreBoard =~ tr/D//),($ScoreBoard =~ tr/C//),($ScoreBoard =~ tr/L//),($ScoreBoard =~ tr/G//),($ScoreBoard =~ tr/I//), $CountOpenSlots);
+      printf("CRITICAL %f seconds response time. Idle %d, busy %d, open slots %d | 'Waiting for Connection'=%d 'Starting Up'=%d 'Reading Request'=%d 'Sending Reply'=%d 'Keepalive (read)'=%d 'DNS Lookup'=%d 'Closing Connection'=%d 'Logging'=%d 'Gracefully finishing'=%d 'Idle cleanup'=%d 'Open slot'=%d 'Requests/sec'=%0.1f 'kB per sec'=%0.1fKB 'kB per Request'=%0.1fKB\n", $timeelapsed, $IdleWorkers, $BusyWorkers, $CountOpenSlots, ($ScoreBoard =~ tr/\_//), ($ScoreBoard =~ tr/S//),($ScoreBoard =~ tr/R//),($ScoreBoard =~ tr/W//),($ScoreBoard =~ tr/K//),($ScoreBoard =~ tr/D//),($ScoreBoard =~ tr/C//),($ScoreBoard =~ tr/L//),($ScoreBoard =~ tr/G//),($ScoreBoard =~ tr/I//), $CountOpenSlots, $ReqPerSec, $KbPerSec, $KbPerReq);
       exit $ERRORS{"CRITICAL"}
     }
   } 
   if (defined($o_warn_level) && ($o_warn_level != -1)) {
     if (($CountOpenSlots + $IdleWorkers) <= $o_warn_level) {
-      printf("WARNING %f seconds response time. Idle %d, busy %d, open slots %d | %d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n", $timeelapsed, $IdleWorkers, $BusyWorkers, $CountOpenSlots, ($ScoreBoard =~ tr/\_//), ($ScoreBoard =~ tr/S//),($ScoreBoard =~ tr/R//),($ScoreBoard =~ tr/W//),($ScoreBoard =~ tr/K//),($ScoreBoard =~ tr/D//),($ScoreBoard =~ tr/C//),($ScoreBoard =~ tr/L//),($ScoreBoard =~ tr/G//),($ScoreBoard =~ tr/I//), $CountOpenSlots);
+      printf("WARNING %f seconds response time. Idle %d, busy %d, open slots %d | 'Waiting for Connection'=%d 'Starting Up'=%d 'Reading Request'=%d 'Sending Reply'=%d 'Keepalive (read)'=%d 'DNS Lookup'=%d 'Closing Connection'=%d 'Logging'=%d 'Gracefully finishing'=%d 'Idle cleanup'=%d 'Open slot'=%d 'Requests/sec'=%0.1f 'kB per sec'=%0.1fKB 'kB per Request'=%0.1fKB\n", $timeelapsed, $IdleWorkers, $BusyWorkers, $CountOpenSlots, ($ScoreBoard =~ tr/\_//), ($ScoreBoard =~ tr/S//),($ScoreBoard =~ tr/R//),($ScoreBoard =~ tr/W//),($ScoreBoard =~ tr/K//),($ScoreBoard =~ tr/D//),($ScoreBoard =~ tr/C//),($ScoreBoard =~ tr/L//),($ScoreBoard =~ tr/G//),($ScoreBoard =~ tr/I//), $CountOpenSlots, $ReqPerSec, $KbPerSec, $KbPerReq);
       exit $ERRORS{"WARNING"}
     }
   }
-  printf("OK %f seconds response time. Idle %d, busy %d, open slots %d | %d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n", $timeelapsed, $IdleWorkers, $BusyWorkers, $CountOpenSlots, ($ScoreBoard =~ tr/\_//), ($ScoreBoard =~ tr/S//),($ScoreBoard =~ tr/R//),($ScoreBoard =~ tr/W//),($ScoreBoard =~ tr/K//),($ScoreBoard =~ tr/D//),($ScoreBoard =~ tr/C//),($ScoreBoard =~ tr/L//),($ScoreBoard =~ tr/G//),($ScoreBoard =~ tr/I//), $CountOpenSlots);
+  printf("OK %f seconds response time. Idle %d, busy %d, open slots %d | 'Waiting for Connection'=%d 'Starting Up'=%d 'Reading Request'=%d 'Sending Reply'=%d 'Keepalive (read)'=%d 'DNS Lookup'=%d 'Closing Connection'=%d 'Logging'=%d 'Gracefully finishing'=%d 'Idle cleanup'=%d 'Open slot'=%d 'Requests/sec'=%0.1f 'kB per sec'=%0.1fKB 'kB per Request'=%0.1fKB\n", $timeelapsed, $IdleWorkers, $BusyWorkers, $CountOpenSlots, ($ScoreBoard =~ tr/\_//), ($ScoreBoard =~ tr/S//),($ScoreBoard =~ tr/R//),($ScoreBoard =~ tr/W//),($ScoreBoard =~ tr/K//),($ScoreBoard =~ tr/D//),($ScoreBoard =~ tr/C//),($ScoreBoard =~ tr/L//),($ScoreBoard =~ tr/G//),($ScoreBoard =~ tr/I//), $CountOpenSlots, $ReqPerSec, $KbPerSec, $KbPerReq);
       exit $ERRORS{"OK"}
 }
 else {

@@ -101,7 +101,7 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 	logp.Debug("nagioscheck", "Running Command: %q", nagiosCheck.cmd)
 
 	//arg_fields := strings.Fields(args)
-	arg_fields, err := shellwords.Parse(nagiosCheck.args) // Smarter
+	arg_fields, err := shellwords.Parse(nagiosCheck.args) // Smarter.  Also consider https://github.com/mgutz/str#func--toargv
 
 	if err != nil {
 		return
