@@ -4,7 +4,7 @@ SYSTEM_TESTS=true
 # Only crosscompile for linux because other OS'es use cgo.
 GOX_OS=linux
 
-include /go/src/github.com/elastic/beats/libbeat/scripts/Makefile
+include Makefile.libbeat
 
 .PHONY: install-cfg
 install-cfg:
