@@ -1,0 +1,1 @@
+e0bdf0411a380db27cbc9f419777dafae1f6cb9e  nagioscheckbeat_0.5.2_amd64.deb

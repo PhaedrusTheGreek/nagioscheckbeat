@@ -8,7 +8,7 @@ RUN yum -y update && yum clean all
 RUN yum -y install httpd epel-release
 RUN yum -y install nagios-plugins-all perl-LWP-Protocol-https.noarch perl-Nagios-Plugin.noarch
 RUN yum clean all
-RUN rpm -ivh https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/build/nagioscheckbeat-0.5.1-x86_64.rpm?raw=true
+RUN rpm -ivh https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/build/nagioscheckbeat-0.5.2-x86_64.rpm?raw=true
 
 EXPOSE 80
 

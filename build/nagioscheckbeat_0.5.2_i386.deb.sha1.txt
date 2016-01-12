@@ -1,0 +1,1 @@
+83698c9c8532729d4b8d582cedba03d0ee1eac3b  nagioscheckbeat_0.5.2_i386.deb

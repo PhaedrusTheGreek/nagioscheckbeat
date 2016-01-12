@@ -1,0 +1,1 @@
+669a846b84c008bac33c14dc86f1e7133a6574e2  nagioscheckbeat-0.5.2-i686.rpm
