@@ -25,9 +25,10 @@ func TestParse(t *testing.T) {
 		{"time=0.002722s;0.000000;0.000000;0.000000;10.000000", []Perf{
 			{Label: "time", Value: 0.002722, Uom: "s", Max: 10},
 		}},
-		{"'Waiting for Connection'=22 'Starting Up'=1\n", []Perf{
+		{"'Waiting for Connection'=22 'Starting Up'=1 'kB per sec'=0.0KB\n", []Perf{
 			{Label: "Waiting for Connection", Value: 22 },
 			{Label: "Starting Up", Value: 1 },
+			{Label: "kB per sec", Value: 0.0, Uom: "KB" },
 		}},
 		{"", []Perf{}},
 	}

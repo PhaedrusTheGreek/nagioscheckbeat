@@ -6,7 +6,7 @@ import (
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/nagiosperf"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/mattn/go-shellwords"
+	"github.com/mgutz/str"
 	"os/exec"
 	"strings"
 	"syscall"
@@ -100,12 +100,7 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 
 	logp.Debug("nagioscheck", "Running Command: %q", nagiosCheck.cmd)
 
-	//arg_fields := strings.Fields(args)
-	arg_fields, err := shellwords.Parse(nagiosCheck.args) // Smarter.  Also consider https://github.com/mgutz/str#func--toargv
-
-	if err != nil {
-		return
-	}
+	arg_fields := str.ToArgv(nagiosCheck.args) 
 
 	cmd := exec.Command(nagiosCheck.cmd, arg_fields...)
 	var waitStatus syscall.WaitStatus

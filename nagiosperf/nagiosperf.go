@@ -9,6 +9,7 @@ import (
 	"errors"
 	"regexp"
 	"strconv"
+	"github.com/mgutz/str"
 )
 
 type Perf struct {
@@ -114,9 +115,10 @@ func ParsePerfString(perfString string) ([]Perf, []error) {
 }
 
 /*
-Splits string by spaces, considering quotes
+Splits string by spaces, ignoring spaces between quotes
 */
 func eachPerf(perfString string) []string {
-	ir := regexp.MustCompile("'.+'|\".+\"|\\S+")
-	return ir.FindAllString(perfString, -1)
+	//ir := regexp.MustCompile("'.*?'.*? |\".*?\"")
+	//return ir.FindAllString(perfString, -1)
+	return str.ToArgv(perfString)
 }
