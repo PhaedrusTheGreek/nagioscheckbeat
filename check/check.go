@@ -100,7 +100,7 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 
 	logp.Debug("nagioscheck", "Running Command: %q", nagiosCheck.cmd)
 
-	arg_fields := str.ToArgv(nagiosCheck.args) 
+	arg_fields := str.ToArgv(nagiosCheck.args)
 
 	cmd := exec.Command(nagiosCheck.cmd, arg_fields...)
 	var waitStatus syscall.WaitStatus
@@ -132,30 +132,30 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 		logp.Debug("nagioscheck", "Parsing: %q", parts[1])
 		perfs, errors := nagiosperf.ParsePerfString(parts[1])
 		if len(errors) > 0 {
-			err = errors[0]
-			return
-		} else {
-
-			logp.Debug("nagioscheck", "Command Returned '%d' Perf Metrics: %v", len(perfs), perfs)
-
-			for _, perf := range perfs {
-
-				metric_event := common.MapStr{
-					"@timestamp": common.Time(startTime),
-					"type":       "nagiosmetric",
-					"name":       nagiosCheck.name,
-					"label":      perf.Label,
-					"uom":        perf.Uom,
-					"value":      perf.Value,
-					"min":        perf.Min,
-					"max":        perf.Max,
-					"warning":    perf.Warning,
-					"critical":   perf.Critical,
-				}
-
-				events = append(events, metric_event)
-
+			for _, err := range errors {
+				logp.Debug("parse_errors", "Parse Error: %v", err)
 			}
+		}
+
+		logp.Debug("nagioscheck", "Command Returned '%d' Perf Metrics: %v", len(perfs), perfs)
+
+		for _, perf := range perfs {
+
+			metric_event := common.MapStr{
+				"@timestamp": common.Time(startTime),
+				"type":       "nagiosmetric",
+				"name":       nagiosCheck.name,
+				"label":      perf.Label,
+				"uom":        perf.Uom,
+				"value":      perf.Value,
+				"min":        perf.Min,
+				"max":        perf.Max,
+				"warning":    perf.Warning,
+				"critical":   perf.Critical,
+			}
+
+			events = append(events, metric_event)
+
 		}
 	}
 

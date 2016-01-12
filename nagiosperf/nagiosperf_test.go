@@ -9,7 +9,7 @@ func TestParse(t *testing.T) {
 		in   string
 		want []Perf
 	}{
-		{"load1=0.010;5.000;9.000;0; load5=0.060;5.000;9.000;0; load15=2.010;5.000;9.000;0;", []Perf{
+		{"load1=0.010;5.000;9.000;0; load5=0.060;5.000;9.000;0; load15=2.010;5.000;9.000;0; \n", []Perf{
 			{Label: "load1", Value: 0.01, Warning: 5, Critical: 9, Min: 0},
 			{Label: "load5", Value: 0.06, Warning: 5, Critical: 9, Min: 0},
 			{Label: "load15", Value: 2.01, Warning: 5, Critical: 9, Min: 0},
@@ -26,9 +26,9 @@ func TestParse(t *testing.T) {
 			{Label: "time", Value: 0.002722, Uom: "s", Max: 10},
 		}},
 		{"'Waiting for Connection'=22 'Starting Up'=1 'kB per sec'=0.0KB\n", []Perf{
-			{Label: "Waiting for Connection", Value: 22 },
-			{Label: "Starting Up", Value: 1 },
-			{Label: "kB per sec", Value: 0.0, Uom: "KB" },
+			{Label: "Waiting for Connection", Value: 22},
+			{Label: "Starting Up", Value: 1},
+			{Label: "kB per sec", Value: 0.0, Uom: "KB"},
 		}},
 		{"", []Perf{}},
 	}

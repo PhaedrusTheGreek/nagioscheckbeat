@@ -3,11 +3,14 @@ package check
 import (
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
 	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/logp"
 	"strings"
 	"testing"
 )
 
 func TestCheck(t *testing.T) {
+
+	logp.LogInit(logp.LOG_DEBUG, "", false, true, []string{"*"})
 
 	/*
 		1st Check, makes sure command runs and returns OK

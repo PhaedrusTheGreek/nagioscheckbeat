@@ -7,9 +7,10 @@ http://cpansearch.perl.org/src/NIERLEIN/Monitoring-Plugin-0.39/lib/Monitoring/Pl
 
 import (
 	"errors"
+	"github.com/mgutz/str"
 	"regexp"
 	"strconv"
-	"github.com/mgutz/str"
+	"strings"
 )
 
 type Perf struct {
@@ -99,7 +100,7 @@ func ParsePerfString(perfString string) ([]Perf, []error) {
 
 	perfs := []Perf{}
 
-	for _, element := range eachPerf(perfString) {
+	for _, element := range eachPerf(strings.TrimSpace(perfString)) {
 
 		perf, err := parse(element)
 
@@ -118,7 +119,5 @@ func ParsePerfString(perfString string) ([]Perf, []error) {
 Splits string by spaces, ignoring spaces between quotes
 */
 func eachPerf(perfString string) []string {
-	//ir := regexp.MustCompile("'.*?'.*? |\".*?\"")
-	//return ir.FindAllString(perfString, -1)
 	return str.ToArgv(perfString)
 }
