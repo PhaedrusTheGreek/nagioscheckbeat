@@ -5,14 +5,34 @@ input:
   checks:
     -
       name: "heartbeat"
-      cmd: "/usr/lib64/nagios/plugins/check_dummy"
+      cmd: "/usr/lib/nagios/plugins/check_dummy"
       args: "0 Hello"
       period: "10s"
     -
       period: "10s"
-      name: "apache"
-      cmd: "/usr/lib64/nagios/plugins/check_apachestatus.pl"
-      args: "-H localhost"
+      name: "mysql_slow_queries"
+      cmd: "/usr/lib/nagios/libexec/check_mysql_health"
+      args: "--mode slow-queries"
+    -
+      period: "10s"
+      name: "mysql_index_hitrate"
+      cmd: "/usr/lib/nagios/libexec/check_mysql_health"
+      args: "--mode index-usage"
+    -
+      period: "10s"
+      name: "mysql_query_cache_hitrate"
+      cmd: "/usr/lib/nagios/libexec/check_mysql_health"
+      args: "--mode qcache-hitrate"
+    -
+      period: "10s"
+      name: "mysql_table_cache_hitrate"
+      cmd: "/usr/lib/nagios/libexec/check_mysql_health"
+      args: "--mode tablecache-hitrate"
+    -
+      period: "10s"
+      name: "mysql_threads_running"
+      cmd: "/usr/lib/nagios/libexec/check_mysql_health"
+      args: "--mode threads-running"
 
 ###############################################################################
 ############################# Libbeat Config ##################################

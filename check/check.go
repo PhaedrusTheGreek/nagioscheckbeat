@@ -94,6 +94,7 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 	check_event := common.MapStr{
 		"@timestamp": common.Time(startTime),
 		"type":       "nagioscheck",
+		"name":       nagiosCheck.name,
 		"cmd":        nagiosCheck.cmd,
 		"args":       nagiosCheck.args,
 	}

@@ -5,4 +5,6 @@
 # if it thinks it is already running.
 rm -rf /run/httpd/* /tmp/httpd*
 
+/usr/bin/nagioscheckbeat -c /etc/nagioscheckbeat/nagioscheckbeat.yml &
+
 exec /usr/sbin/apachectl -DFOREGROUND

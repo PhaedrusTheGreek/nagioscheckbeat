@@ -1,21 +1,37 @@
 elasticsearch:
-  image: elasticsearch:latest
-  command: elasticsearch -Des.network.host=0.0.0.0
+  build: elasticsearch/
+  command: elasticsearch -Des.default.path.conf=/etc/elasticsearch
+  volumes:
+    - ./elasticsearch/config/:/etc/elasticsearch/
   ports:
     - "9200:9200"
-db:
-  image: orchardup/mysql
+kibana:
+  build: kibana/
+  hostname: kibana1
+  volumes:
+    - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml
+  ports:
+    - "5601:5601"
+  links:
+    - elasticsearch
+mysql:
+  build: mysql
+  hostname: mysql1
+  ports:
+    - "3306:3306"
   links:
    - elasticsearch
   environment:
-    MYSQL_DATABASE: testdb1
+    MYSQL_DATABASE: mysqlslap
 redis:
-  image: redis
+  build: redis
+  hostname: redis1
   links:
    - elasticsearch
   ports:
-   - "6379"
+   - "6379:6379"
 web:
+  hostname: web1
   links:
    - elasticsearch
   restart: always

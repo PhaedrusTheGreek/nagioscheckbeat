@@ -1,0 +1,18 @@
+FROM orchardup/mysql
+
+RUN apt-get update 
+RUN apt-get install -y nagios-plugins
+RUN apt-get install -y vim wget make
+
+ENV URL 'https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/build/nagioscheckbeat_0.5.2_amd64.deb?raw=true'
+ENV FILE /tmp/tmp-file.deb	
+RUN wget --no-check-certificate "$URL" -qO $FILE && dpkg -i $FILE; rm $FILE
+
+EXPOSE 3306
+
+COPY nagioscheckbeat.yml /etc/nagioscheckbeat/nagioscheckbeat.yml
+
+ADD run-stuff.sh /run-stuff.sh
+RUN chmod -v +x /run-stuff.sh
+
+CMD ["/run-stuff.sh"]

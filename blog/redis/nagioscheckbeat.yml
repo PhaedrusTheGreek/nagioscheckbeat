@@ -5,14 +5,14 @@ input:
   checks:
     -
       name: "heartbeat"
-      cmd: "/usr/lib64/nagios/plugins/check_dummy"
+      cmd: "/usr/lib/nagios/plugins/check_dummy"
       args: "0 Hello"
       period: "10s"
     -
       period: "10s"
-      name: "apache"
-      cmd: "/usr/lib64/nagios/plugins/check_apachestatus.pl"
-      args: "-H localhost"
+      name: "redis"
+      cmd: "/usr/lib/nagios/plugins/check_redis.pl"
+      args: "-H 127.0.0.1 -R -m -T -f -A"
 
 ###############################################################################
 ############################# Libbeat Config ##################################

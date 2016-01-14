@@ -1,0 +1,12 @@
+network.host: 0.0.0.0
+
+watcher.actions.email.service.account:
+  work:
+    profile: gmail
+    smtp:
+      auth: true
+      starttls.enable: true
+      host: smtp.gmail.com
+      port: 587
+      user: routerdevil@gmail.com
+      password: theCr0w##
