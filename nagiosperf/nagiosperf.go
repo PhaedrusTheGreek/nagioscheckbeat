@@ -17,7 +17,8 @@ type Perf struct {
 	Label string
 	Uom   string
 
-	Value    float64
+	Value float64
+
 	Warning  float64
 	Critical float64
 	Min      float64
@@ -104,10 +105,10 @@ func ParsePerfString(perfString string) ([]Perf, []error) {
 
 		perf, err := parse(element)
 
-		perfs = append(perfs, perf)
-
 		if err != nil {
 			errors = append(errors, err)
+		} else {
+			perfs = append(perfs, perf)
 		}
 
 	}
