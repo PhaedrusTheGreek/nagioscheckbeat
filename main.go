@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	beat.Run("nagioscheckbeat", "0.1", nagioscheckbeat.New())
+	beat.Run("nagioscheckbeat", "0.5", nagioscheckbeat.New())
 }
