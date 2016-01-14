@@ -9,4 +9,4 @@ watcher.actions.email.service.account:
       host: smtp.gmail.com
       port: 587
       user: you@gmail.com
-      password: *******
+      password: blah

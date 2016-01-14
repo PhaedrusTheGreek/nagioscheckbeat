@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get install -y nagios-plugins
 RUN apt-get install -y vim wget make
 
-ENV URL 'https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/build/nagioscheckbeat_0.5.2_amd64.deb?raw=true'
+ENV URL 'https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/build/nagioscheckbeat_0.5.3_amd64.deb?raw=true'
 ENV FILE /tmp/tmp-file.deb	
 RUN wget --no-check-certificate "$URL" -qO $FILE && dpkg -i $FILE; rm $FILE
 

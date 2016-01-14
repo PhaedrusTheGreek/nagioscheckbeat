@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y redis-server wget
 RUN apt-get install -y nagios-plugins 
 RUN apt-get install -y libredis-perl
 
-ENV URL 'https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/build/nagioscheckbeat_0.5.2_amd64.deb?raw=true'
+ENV URL 'https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/build/nagioscheckbeat_0.5.3_amd64.deb?raw=true'
 ENV FILE /tmp/tmp-file.deb	
 RUN wget "$URL" -qO $FILE && dpkg -i $FILE; rm $FILE
 
