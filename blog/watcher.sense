@@ -68,7 +68,8 @@ PUT _watcher/watch/heartbeat_watch
         "to" : "jay.greenberg@elastic.co",  
         "subject" : "Alert from Watcher - Host(s) Down",
         "body" : "One or more hosts have not checked in recently.  See the attached file for details.  You will not receive another notification for 1 hour.",
-        "attach_data" : true
+        "attach_data" : true,
+	"priority" : "high"
       }
     }
   }

@@ -30,6 +30,12 @@ func TestParse(t *testing.T) {
 			{Label: "Starting Up", Value: 1},
 			{Label: "kB per sec", Value: 0.0, Uom: "KB"},
 		}},
+		{"os=Linux 3.10.87-1.el6.elrepo.x86_64 x86_64 connected_clients=1 config_file=", []Perf{
+			{Label: "os", Value: "Linux 3.10.87-1.el6.elrepo.x86_64 x86_64"},
+			{Label: "connected_clients", Value: 1},
+			{Label: "config_file"},
+		}},
+
 		{"", []Perf{}},
 	}
 	for _, c := range cases {
