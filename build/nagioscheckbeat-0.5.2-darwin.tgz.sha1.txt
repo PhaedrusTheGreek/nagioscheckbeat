@@ -1,1 +1,0 @@
-3ecb612041c06598b39259f8b441a26adffa9d4f  nagioscheckbeat-0.5.2-darwin.tgz
