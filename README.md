@@ -1,7 +1,7 @@
 # NagiosCheckBeat
 
 NagiosCheckBeat is the [Beat](https://www.elastic.co/products/beats) used for
-Running Nagios Checks.
+running Nagios checks.
 
 ![Kibana Screenshot](https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/ss.png)
 
