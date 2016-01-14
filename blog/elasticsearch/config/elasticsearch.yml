@@ -8,5 +8,5 @@ watcher.actions.email.service.account:
       starttls.enable: true
       host: smtp.gmail.com
       port: 587
-      user: ***
+      user: you@gmail.com
       password: ***

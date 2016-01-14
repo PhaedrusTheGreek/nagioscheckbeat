@@ -1,0 +1,75 @@
+PUT _watcher/watch/heartbeat_watch
+{
+  "trigger" : {
+      "schedule" : {
+        "interval" : "1m"
+    }
+  },
+  "input" : {
+    "search" : {
+      "request" : {
+        "indices" : [ "nagioscheckbeat*" ],
+        "body" : {  
+           "query":{  
+              "filtered":{  
+                 "query" : {
+                    "bool" : {
+                      "must" : [
+                          { "term" : {"_type": "nagioscheck"} },
+                          { "range" : {"@timestamp" : {"gte" : "now-1d"}} }
+                      ]
+                    }
+                 }
+              }
+           },
+            "aggs": {
+                "hosts": {
+                    "terms": {
+                        "field": "beat.hostname"
+                    },
+                    "aggs": {
+                        "latest_heartbeat": {
+                            "top_hits": {
+                                "sort": [
+                                    {
+                                        "@timestamp": {
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "_source": {
+                                    "include": [
+                                        "@timestamp"
+                                    ]
+                                },
+                                "size" : 1
+                            }
+                        }
+                    }
+                }
+            },
+            "size": 0
+        }
+      }
+    }
+  },
+  "condition" : {
+    "script" : {
+      "file" : "monitor-hosts",
+      "params" : {
+        "threshold" : 0
+      }
+    }
+  },
+  "actions" : {
+    "send_email" : {
+      "throttle_period": "1h", 
+      "email" : {
+        "to" : "jay.greenberg@elastic.co",  
+        "subject" : "Alert from Watcher - Host(s) Down",
+        "body" : "One or more hosts have not checked in recently.  See the attached file for details.  You will not receive another notification for 1 hour.",
+        "attach_data" : true
+      }
+    }
+  }
+}
