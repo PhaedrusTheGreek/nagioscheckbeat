@@ -1,0 +1,45 @@
+PUT _watcher/watch/critical_watch
+{
+  "trigger" : {
+      "schedule" : {
+        "interval" : "1m"
+    }
+  },
+  "input" : {
+    "search" : {
+      "request" : {
+        "indices" : [ "nagioscheckbeat*" ],
+        "body" : {  
+           "query":{  
+              "filtered":{  
+                 "query" : {
+                    "bool" : {
+                      "must" : [
+                            { "term" : {"_type": "nagioscheck"} },
+                            { "range" : {"@timestamp" : {"gte" : "now-30m"}} },
+                            { "term" : {"status" : "CRITICAL" } }
+                      ]
+                    }
+                 }
+              }
+           }
+        }
+      }
+    }
+  },
+  "condition" : {
+    "compare" : { "ctx.payload.hits.total" : { "gt" : 0 }}
+  },
+  "actions" : {
+    "send_email" : {
+      "throttle_period": "30m", 
+      "email" : {
+        "to" : "jay.greenberg@elastic.co",  
+        "subject" : "Alert from Watcher - Service(s) Critical",
+        "body" : "One or more services reported a CRITICAL state within the last 30 minutes.  See the attached file for details.  You will not receive another notification for 30 minutes.",
+        "attach_data" : true
+      }
+    }
+  }
+}
+

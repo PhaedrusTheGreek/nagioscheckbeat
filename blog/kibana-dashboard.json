@@ -1,0 +1,89 @@
+[
+  {
+    "_id": "Overview",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Overview",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"id\":\"MySQL-Performance\",\"type\":\"visualization\",\"panelIndex\":1,\"size_x\":12,\"size_y\":4,\"col\":1,\"row\":4},{\"id\":\"Apache-Workers\",\"type\":\"visualization\",\"panelIndex\":2,\"size_x\":6,\"size_y\":3,\"col\":1,\"row\":1},{\"id\":\"Apache-Traffic\",\"type\":\"visualization\",\"panelIndex\":3,\"size_x\":6,\"size_y\":3,\"col\":7,\"row\":1}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": false,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  },
+  {
+    "_id": "MySQL-Performance",
+    "_type": "visualization",
+    "_source": {
+      "title": "MySQL Performance",
+      "visState": "{\"type\":\"line\",\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"defaultYExtents\":false,\"drawLinesBetweenPoints\":true,\"interpolate\":\"linear\",\"radiusRatio\":9,\"scale\":\"linear\",\"setYExtents\":false,\"shareYAxis\":true,\"showCircles\":false,\"smoothLines\":true,\"times\":[],\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"value\"}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"label\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"nagioscheckbeat*\",\"query\":{\"query_string\":{\"query\":\"name:mysql* && (label:selects_per_sec || label:index_usage_now || label:qcache_hitrate_now || label:slow_queries_rate || label:threads_running)\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "MySQL-Line-Graph",
+    "_type": "visualization",
+    "_source": {
+      "title": "MySQL Line Graph",
+      "visState": "{\"type\":\"line\",\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"defaultYExtents\":false,\"drawLinesBetweenPoints\":true,\"interpolate\":\"linear\",\"radiusRatio\":9,\"scale\":\"linear\",\"setYExtents\":false,\"shareYAxis\":true,\"showCircles\":false,\"smoothLines\":true,\"times\":[],\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"value\"}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"label\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"nagioscheckbeat*\",\"query\":{\"query_string\":{\"query\":\"name:mysql* && (label:selects_per_sec || label:index_usage || label:qcache_hitrate || label:slow_queries_rate || label:threads_running)\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Apache-Workers",
+    "_type": "visualization",
+    "_source": {
+      "title": "Apache Workers",
+      "visState": "{\"aggs\":[{\"id\":\"1\",\"params\":{\"field\":\"value\"},\"schema\":\"metric\",\"type\":\"avg\"},{\"id\":\"2\",\"params\":{\"customInterval\":\"2h\",\"extended_bounds\":{},\"field\":\"@timestamp\",\"interval\":\"auto\",\"min_doc_count\":1},\"schema\":\"segment\",\"type\":\"date_histogram\"},{\"id\":\"3\",\"params\":{\"field\":\"label\",\"order\":\"desc\",\"orderBy\":\"1\",\"size\":10},\"schema\":\"group\",\"type\":\"terms\"}],\"listeners\":{},\"params\":{\"addLegend\":true,\"addTimeMarker\":false,\"addTooltip\":true,\"defaultYExtents\":false,\"mode\":\"percentage\",\"scale\":\"linear\",\"setYExtents\":false,\"shareYAxis\":true,\"times\":[],\"yAxis\":{}},\"type\":\"histogram\"}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"nagioscheckbeat*\",\"query\":{\"query_string\":{\"query\":\"name:apache* && ( label:\\\"Open slot\\\" OR label:\\\"Waiting for Connection\\\" OR label:\\\"Sending Reply\\\" OR label:\\\"Closing Connection\\\" OR  label:\\\"DNS Lookup\\\" OR label:\\\"Gracefully finishing\\\" OR label:\\\"Idle Cleanup\\\")\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Apache-Traffic",
+    "_type": "visualization",
+    "_source": {
+      "title": "Apache Traffic",
+      "visState": "{\"type\":\"area\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"smoothLines\":true,\"scale\":\"linear\",\"interpolate\":\"linear\",\"mode\":\"overlap\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"schema\":\"metric\",\"params\":{\"field\":\"value\"}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"label\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"nagioscheckbeat*\",\"query\":{\"query_string\":{\"query\":\"name:apache*  && ( label:\\\"kB per sec\\\" OR label:\\\"Requests/sec\\\")\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "Critical-Services",
+    "_type": "visualization",
+    "_source": {
+      "title": "Critical Services",
+      "visState": "{\"type\":\"histogram\",\"params\":{\"shareYAxis\":true,\"addTooltip\":true,\"addLegend\":true,\"scale\":\"linear\",\"mode\":\"stacked\",\"times\":[],\"addTimeMarker\":false,\"defaultYExtents\":false,\"setYExtents\":false,\"yAxis\":{}},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\",\"customInterval\":\"2h\",\"min_doc_count\":1,\"extended_bounds\":{}}},{\"id\":\"3\",\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"name\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}},{\"id\":\"4\",\"type\":\"terms\",\"schema\":\"split\",\"params\":{\"field\":\"beat.hostname\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"row\":true}}],\"listeners\":{}}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"nagioscheckbeat*\",\"query\":{\"query_string\":{\"query\":\"type:nagioscheck AND status:CRITICAL\",\"analyze_wildcard\":true}},\"filter\":[]}"
+      }
+    }
+  }
+]

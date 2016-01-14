@@ -20,23 +20,21 @@ mysql:
   ports:
     - "3306:3306"
   links:
-   - "elasticsearch:elasticsearch"
+    - "elasticsearch:elasticsearch"
   environment:
     MYSQL_DATABASE: mysqlslap
 redis:
   build: redis
   hostname: redis1
   links:
-   - "elasticsearch:elasticsearch"
+    - "elasticsearch:elasticsearch"
   ports:
-   - "6379:6379"
+    - "6379:6379"
 web:
   hostname: web1
   links:
-   - "elasticsearch:elasticsearch"
+    - "elasticsearch:elasticsearch"
   restart: always
   build: apache
   ports:
-   - "80:80"
-  volumes:
-   - /var/www
+    - "80:80"

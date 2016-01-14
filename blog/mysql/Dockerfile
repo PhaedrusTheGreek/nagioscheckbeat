@@ -12,6 +12,10 @@ EXPOSE 3306
 
 COPY nagioscheckbeat.yml /etc/nagioscheckbeat/nagioscheckbeat.yml
 
+ADD install-check.sh /install-check.sh
+RUN chmod -v +x /install-check.sh
+RUN /install-check.sh
+
 ADD run-stuff.sh /run-stuff.sh
 RUN chmod -v +x /run-stuff.sh
 
