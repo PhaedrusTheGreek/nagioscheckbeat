@@ -10,7 +10,7 @@ Optional Requirements
 
 ### Instructions
 
-1. Set your gmail username and password in elasticearch/config/elasticsearch.yml
+1. Set your gmail username and password in elasticearch/config/elasticsearch.yml (Also see [here](https://support.google.com/accounts/answer/6010255?hl=en), and make sure 2 phase auth is not enabled)
 2. Run Stuff
 
 ```
