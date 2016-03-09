@@ -124,6 +124,7 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 	parts := strings.Split(string(output), "|")
 	check_event["message"] = parts[0]
 	check_event["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
+	check_event["status_code"] = waitStatus.ExitStatus()
 	check_event["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
 
 	// publish the check result, even if there is no perf data
