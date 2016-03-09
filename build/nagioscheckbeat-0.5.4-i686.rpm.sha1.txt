@@ -1,0 +1,1 @@
+5487524f3a1c4f1acf125d66c593c66528597ab6  nagioscheckbeat-0.5.4-i686.rpm
