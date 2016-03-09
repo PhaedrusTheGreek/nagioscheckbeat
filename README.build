@@ -1,0 +1,63 @@
+Not easy, but it works...
+
+`
+1) Fork & Clone https://github.com/elastic/beats (already forked as https://github.com/PhaedrusTheGreek/beats)
+
+2) clone https://github.com/PhaedrusTheGreek/nagioscheckbeat into https://github.com/PhaedrusTheGreek/beats
+
+ Now, there is a directory like this:  https://github.com/PhaedrusTheGreek/beats/nagioscheckbeat
+
+3) Clone https://github.com/elastic/beats-packer
+
+Add these Make directive 
+
+```
+packages: nagioscheckbeat/deb nagioscheckbeat/rpm nagioscheckbeat/darwin nagioscheckbeat/win nagioscheckbeat/bin build/upload/build_id.txt latest
+
+nagioscheckbeat: build/upload
+        # cross compile on ubuntu
+        cd build && xgo -image=tudorg/beats-builder \
+                -before-build=../xgo-scripts/$@_before_build.sh \
+                -branch $(BRANCH) \
+                -pkg $@ \
+                github.com/PhaedrusTheGreek/beats
+        # linux builds on debian 6
+        cd build && xgo -image=tudorg/beats-builder-deb6 \
+                -before-build=../xgo-scripts/$@_before_build.sh \
+                -branch $(BRANCH) \
+                -pkg $@ \
+                github.com/PhaedrusTheGreek/beats
+```
+
+4) Make the file xgo-scripts/nagioscheckbeat_before_build.sh
+
+```
+#!/bin/sh
+
+set -e
+
+BEAT_PATH=/go/src/github.com/PhaedrusTheGreek/beats/nagioscheckbeat
+cd $BEAT_PATH
+PREFIX=/build make install-cfg
+```
+
+5) Make beats/nagioscheckbeat.yml
+
+```
+beat_name: nagioscheckbeat
+beat_url: 'https://github.com/PhaedrusTheGreek/nagioscheckbeat'
+beat_repo: 'github.com/PhaedrusTheGreek/nagioscheckbeat'
+beat_description: For the Nagios Checks
+```
+
+6) edit releases/master.yml
+
+```
+version: "0.5.4"
+rpm_version: "0.5.4"
+deb_version: "0.5.4"
+```
+
+7) run `make packages`
+
+Ensure docker is running
