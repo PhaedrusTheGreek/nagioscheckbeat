@@ -1,5 +1,7 @@
 ### A case for self monitoring systems
 
+https://www.elastic.co/blog/a-case-for-self-monitoring-systems
+
 This is a proof of concept that uses nagioscheckbeat in combination with Elasticsearch, Kibana, and Watcher to implement a total monitoring solution.  Tested on CentOS 6.
 
 Requires:
