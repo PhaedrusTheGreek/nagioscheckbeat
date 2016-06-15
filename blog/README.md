@@ -8,9 +8,10 @@ This is a proof of concept that uses nagioscheckbeat in combination with Elastic
 - In *Alerting On Lost Heartbeats* , a *Threshold* parameter is sent to the script, but never used
 - A better solution was found later found by [inqueue](https://github.com/inqueue) - Re: Alerting On Lost Heartbeats, instead of using a groovy script for the watch to determine host *downness*, you could do [something like this](https://gist.github.com/inqueue/24b459c177bc0e1967198008eb3a40d4), where we aggregate on heartbeats in the last now-30s seconds.  Since the parent query searches for now-1d, we end up with an empty bucket for down hosts.   
 
+### Requirements
 
 Requires:
-- Docker
+- Docker 
 
 Optional Requirements
 - Load Test (hammer.sh) requires redis, mysql, and apache.
