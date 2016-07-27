@@ -1,0 +1,7 @@
+0.6.0  
+ - Using new Cookie Cutter framework for Packaging, Docs & Template generation
+ - Changed period settings to be a time.Duration variable instead of a parsed STring
+ - Updated PublishEvents for libbeat changes (was no longer available in beat.Events.PublishEvents(), moved to client.PublishEvents()
+0.5.4 
+ - added numerical status_code to check output
+0.5.3
