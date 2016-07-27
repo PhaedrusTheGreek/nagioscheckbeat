@@ -48,17 +48,9 @@ func (nagiosCheck *NagiosCheck) Setup(config *config.NagiosCheckConfig) error {
 		nagiosCheck.enabled = false
 	}
 
-	var period = "1m"
-	if config.Period != nil {
-		period = *config.Period
-	}
-
-	duration, err := time.ParseDuration(period)
-	if err != nil {
-		logp.Err("Invalid Interval: %v", err)
-		return err
-	} else {
-		nagiosCheck.duration = duration
+	nagiosCheck.duration = 60 * time.Second
+	if config.Period != 0 {
+		nagiosCheck.duration = config.Period
 	}
 
 	return nil
@@ -71,10 +63,10 @@ func (nagiosCheck *NagiosCheck) Run(publish func([]common.MapStr)) {
 		return
 	}
 
+	logp.Info("Starting metric %s with period %v", nagiosCheck.name, nagiosCheck.duration)
+
 	ticker := time.NewTicker(nagiosCheck.duration)
 	defer ticker.Stop()
-
-	logp.Info("Start metric %s with period %v", nagiosCheck.name, nagiosCheck.duration)
 
 	for range ticker.C {
 		events, err := nagiosCheck.Check()

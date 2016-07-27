@@ -1,17 +1,17 @@
 package config
 
+import "time"
+
 type NagiosCheckConfig struct {
-	Cmd     *string `yaml:"cmd"`
-	Args    *string `yaml:"args"`
-	Name    *string `yaml:"name"`
-	Period  *string `yaml:"period"`
-	Enabled *bool   `yaml:"enabled"`
+	Cmd     *string       `yaml:"cmd"`
+	Args    *string       `yaml:"args"`
+	Name    *string       `yaml:"name"`
+	Period  time.Duration `yaml:"period"`
+	Enabled *bool         `yaml:"enabled"`
 }
 
-type NagiosCheckBeatConfig struct {
+type Config struct {
 	Checks []NagiosCheckConfig
 }
 
-type ConfigSettings struct {
-	Input NagiosCheckBeatConfig
-}
+var DefaultConfig = Config{}

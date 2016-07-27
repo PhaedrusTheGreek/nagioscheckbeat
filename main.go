@@ -1,10 +1,16 @@
 package main
 
 import (
-	nagioscheckbeat "github.com/PhaedrusTheGreek/nagioscheckbeat/beat"
+	"os"
+
 	"github.com/elastic/beats/libbeat/beat"
+
+	"github.com/PhaedrusTheGreek/nagioscheckbeat/beater"
 )
 
 func main() {
-	beat.Run("nagioscheckbeat", "0.5", nagioscheckbeat.New())
+	err := beat.Run("nagioscheckbeat", "", beater.New)
+	if err != nil {
+		os.Exit(1)
+	}
 }

@@ -1,19 +1,34 @@
 BEATNAME=nagioscheckbeat
-SYSTEM_TESTS=true
+BEAT_DIR=github.com/PhaedrusTheGreek/
+SYSTEM_TESTS=false
+TEST_ENVIRONMENT=false
+ES_BEATS?=${GOPATH}/src/github.com/elastic/beats
+GOPACKAGES=$(shell glide novendor)
+PREFIX?=.
 
-# Only crosscompile for linux because other OS'es use cgo.
-GOX_OS=linux
+# Path to the libbeat Makefile
+-include $(ES_BEATS)/libbeat/scripts/Makefile
 
-include ../libbeat/scripts/Makefile
+# Initial beat setup
+.PHONY: setup
+setup:
+	make update
 
-.PHONY: install-cfg
-install-cfg:
-	cp etc/nagioscheckbeat.template.json $(PREFIX)/nagioscheckbeat.template.json
-	# linux
-	cp etc/nagioscheckbeat.yml $(PREFIX)/nagioscheckbeat-linux.yml
-	# binary
-	cp etc/nagioscheckbeat.yml $(PREFIX)/nagioscheckbeat-binary.yml
-	# darwin
-	cp etc/nagioscheckbeat.osx.yml $(PREFIX)/nagioscheckbeat-darwin.yml
-	# win
-	cp etc/nagioscheckbeat.yml $(PREFIX)/nagioscheckbeat-win.yml
+.PHONY: git-init
+git-init:
+	git init
+	git add README.md CONTRIBUTING.md
+	git commit -m "Initial commit"
+	git add LICENSE
+	git commit -m "Add the LICENSE"
+	git add .gitignore
+	git commit -m "Add git settings"
+	git add .
+	git reset -- .travis.yml
+	git commit -m "Add nagioscheckbeat"
+	git add .travis.yml
+	git commit -m "Add Travis CI"
+
+# This is called by the beats packer before building starts
+.PHONY: before-build
+before-build:

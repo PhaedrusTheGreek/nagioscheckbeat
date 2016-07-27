@@ -1,11 +1,16 @@
 package check
 
+/*
+  Default nagios check locations are assumed to be in /usr/local/sbin/
+*/
+
 import (
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestCheck(t *testing.T) {
@@ -17,10 +22,10 @@ func TestCheck(t *testing.T) {
 	*/
 	cmd := "/usr/local/sbin/check_dummy"
 	arg := "0 hello"
-	period := "1s"
+	period := 1 * time.Second
 	name := "dummy"
 
-	checkConfig := config.NagiosCheckConfig{Cmd: &cmd, Args: &arg, Period: &period, Name: &name}
+	checkConfig := config.NagiosCheckConfig{Cmd: &cmd, Args: &arg, Period: period, Name: &name}
 
 	check := NagiosCheck{}
 	check.Setup(&checkConfig)
@@ -43,10 +48,10 @@ func TestCheck(t *testing.T) {
 	*/
 	cmd = "/usr/local/sbin/check_load"
 	arg = "-w 5 -c 10"
-	period = "1s"
+	period = 1 * time.Second
 	name = "load"
 
-	checkConfig = config.NagiosCheckConfig{Cmd: &cmd, Args: &arg, Period: &period, Name: &name}
+	checkConfig = config.NagiosCheckConfig{Cmd: &cmd, Args: &arg, Period: period, Name: &name}
 
 	check = NagiosCheck{}
 	check.Setup(&checkConfig)
