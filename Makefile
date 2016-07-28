@@ -2,7 +2,7 @@ BEATNAME=nagioscheckbeat
 BEAT_DIR=github.com/PhaedrusTheGreek/
 SYSTEM_TESTS=false
 TEST_ENVIRONMENT=false
-ES_BEATS?=${GOPATH}/src/github.com/elastic/beats
+ES_BEATS?=${CURDIR}/vendor/github.com/elastic/beats
 GOPACKAGES=$(shell glide novendor)
 PREFIX?=.
 
