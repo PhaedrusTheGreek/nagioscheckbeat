@@ -1,0 +1,146 @@
+hash: dac484f79c3501f8914cbe05b5e7dedd992c7a9651d7fd0c0f65d8d6f89e2faa
+updated: 2016-07-28T14:59:37.582890152-04:00
+imports:
+- name: github.com/andrewkroh/sys
+  version: 287798fe3e430efeb9318b95ff52353aaa2b59b1
+  subpackages:
+  - /windows/svc/eventlog
+- name: github.com/armon/go-socks5
+  version: 3a873e99f5400ad7706e464e905ffcc94b3ff247
+- name: github.com/davecgh/go-spew
+  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
+  subpackages:
+  - /spew
+- name: github.com/dustin/go-humanize
+  version: 499693e27ee0d14ffab67c31ad065fdb3d34ea75
+- name: github.com/eapache/go-resiliency
+  version: b86b1ec0dd4209a588dc1285cdd471e73525c0b3
+  subpackages:
+  - breaker
+- name: github.com/eapache/queue
+  version: ded5959c0d4e360646dc9e9908cff48666781367
+- name: github.com/elastic/beats
+  version: da2e72c8fa314d3d8016b8e7db8a02eb21c0445b
+  subpackages:
+  - /libbeat/beat
+  - libbeat/common
+  - libbeat/logp
+  - libbeat/publisher
+- name: github.com/elastic/go-lumber
+  version: 616041e345fc33c97bc0eb0fa6b388aa07bca3e1
+  subpackages:
+  - /lj
+  - /log
+  - /client/v2
+  - /server/internal
+  - /server/v2
+  - /protocol/v2
+- name: github.com/elastic/go-ucfg
+  version: 50f84b3d287645d33631d5fce4fa0f481e9f5323
+- name: github.com/elastic/gosigar
+  version: f720d6786aff82d4dae3d0af8c0ea5a34cd04029
+- name: github.com/garyburd/redigo
+  version: 8873b2f1995f59d4bcdd2b0dc9858e2cb9bf0c13
+- name: github.com/go-ole/go-ole
+  version: 0e87ea779d9deb219633b828a023b32e1244dd57
+- name: github.com/gokyle/fswatch
+  version: 1dbdf8320a690537582afe0f45c947f501adeaad
+  repo: https://github.com/gokyle/fswatch
+- name: github.com/golang/snappy
+  version: d9eb7a3d35ec988b8585d4a0068e462c27d28380
+- name: github.com/howeyc/gopass
+  version: 66487b23f2880ba32e185121d2cd51a338ea069a
+  repo: https://github.com/howeyc/gopass
+- name: github.com/joeshaw/multierror
+  version: 69b34d4ec901851247ae7e77d33909caf9df99ed
+- name: github.com/klauspost/compress
+  version: 006acde2c5d283d2f8b8aa03d8f0cd2891c680cf
+  subpackages:
+  - zlib
+- name: github.com/klauspost/cpuid
+  version: 09cded8978dc9e80714c4d85b0322337b0a1e5e0
+- name: github.com/klauspost/crc32
+  version: 19b0b332c9e4516a6370a0456e6182c3b5036720
+- name: github.com/mattn/go-colorable
+  version: 9056b7a9f2d1f2d96498d6d146acd1f9d5ed3d59
+  repo: https://github.com/mattn/go-colorable
+- name: github.com/mgutz/ansi
+  version: c286dcecd19ff979eeb73ea444e479b903f2cfcb
+  repo: https://github.com/mgutz/ansi
+- name: github.com/mgutz/goa
+  version: d673c4ff3be94468852a044acd92b006a6b49c35
+  repo: https://github.com/mgutz/goa
+- name: github.com/mgutz/minimist
+  version: 39eb8cf573ca29344bd7d7e6ba4d7febdebd37a9
+  repo: https://github.com/mgutz/minimist
+- name: github.com/mgutz/str
+  version: 968bf66e3da857419e4f6e71b2d5c9ae95682dc4
+- name: github.com/mgutz/to
+  version: 2a0bcba0661696e339461f5efb2273f4459dd1b9
+  repo: https://github.com/mgutz/to
+- name: github.com/MichaelTJones/walk
+  version: 3af09438b0ab0e8f296410bfa646a7e635ea1fc0
+  repo: https://github.com/MichaelTJones/walk
+- name: github.com/miekg/dns
+  version: 5d001d020961ae1c184f9f8152fdc73810481677
+- name: github.com/nozzle/throttler
+  version: d9b45f19996c645d38c9266d1f5cf1990e930119
+  repo: https://github.com/nozzle/throttler
+- name: github.com/nranchev/go-libGeoIP
+  version: c78e8bd2dd3599feb21fd30886043979e82fe948
+- name: github.com/pkg/errors
+  version: 01fa4104b9c248c8945d14d9f128454d5b28d595
+- name: github.com/pmezard/go-difflib
+  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  subpackages:
+  - /difflib
+- name: github.com/samuel/go-parser
+  version: ca8abbf65d0e61dedf061f98bd3850f250e27539
+- name: github.com/samuel/go-thrift
+  version: 2187045faa54fce7f5028706ffeb2f2fc342aa7e
+- name: github.com/satori/go.uuid
+  version: 879c5887cd475cd7864858769793b2ceb0d44feb
+- name: github.com/shirou/gopsutil
+  version: e8f7a95747d711f34ddfe9dd9b825a84bd059dec
+- name: github.com/Shopify/sarama
+  version: 38d579a708d2f87dd4e35342241048e361d1e66a
+- name: github.com/StackExchange/wmi
+  version: f3e2bae1e0cb5aef83e319133eabfee30013a4a5
+- name: github.com/stretchr/objx
+  version: 1a9d0bb9f541897e62256577b352fdbc1fb4fd94
+- name: github.com/stretchr/testify
+  version: f390dcf405f7b83c997eac1b06768bb9f44dec18
+  subpackages:
+  - /assert
+- name: github.com/tsg/gopacket
+  version: 8c16bb8f00ff46af06942df2a8767ba1cf639bdc
+- name: golang.org/x/crypto
+  version: bc89c496413265e715159bdc8478ee9a92fdc265
+  repo: https://golang.org/x/crypto
+- name: golang.org/x/net
+  version: d58ca6618b994150e624f6888d871f4709db51a0
+  subpackages:
+  - /proxy
+  - /publicsuffix
+- name: golang.org/x/sys
+  version: 62bee037599929a6e9146f29d10dd5208c43507d
+  subpackages:
+  - /windows/svc
+- name: golang.org/x/text
+  version: f024ad8118c1182f0c9c976f0fa8e56b39ef821b
+  subpackages:
+  - /encoding
+- name: gopkg.in/godo.v1
+  version: 60979dc29b693e86b330512ce0a00f77856d5dd3
+  repo: https://gopkg.in/godo.v1
+- name: gopkg.in/godo.v2
+  version: b5fd2f0bef1ebe832e628cfad18ab1cc707f65a1
+  repo: https://gopkg.in/godo.v2
+- name: gopkg.in/mgo.v2
+  version: 29cc868a5ca65f401ff318143f9408d02f4799cc
+- name: gopkg.in/tomb.v2
+  version: 14b3d72120e8d10ea6e6b7f87f7175734b1faab8
+  repo: https://gopkg.in/tomb.v2
+- name: gopkg.in/yaml.v2
+  version: a83829b6f1293c91addabc89d0571c246397bbf4
+devImports: []

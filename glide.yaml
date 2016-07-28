@@ -1,0 +1,9 @@
+package: github.com/PhaedrusTheGreek/nagioscheckbeat
+import:
+- package: github.com/elastic/beats
+  subpackages:
+  - /libbeat/beat
+  - libbeat/common
+  - libbeat/logp
+  - libbeat/publisher
+- package: github.com/mgutz/str
