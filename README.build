@@ -1,0 +1,11 @@
+```
+glide create
+glide install --strip-vcs
+```
+
+modify vendor/github.com/elastic/beats/libbeat/scripts/Makefile and change `make deps images ${BEATNAME}` to `make deps images all`
+* This might be already fixed by https://github.com/elastic/beats/pull/2129
+
+```
+export SNAPSHOT=no; make package
+```
