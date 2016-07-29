@@ -9,6 +9,10 @@ running Nagios checks.    You can integrate with Watcher [(How-To)](https://www.
 
 NagiosCheckBeat 0.6.0 is meant to be compatible with Elasticsaerch 2.x and higher.   For Elasticsearch 1.x compatibility, see the 0.5.x branch.
 
+## Download
+
+Packages for Windows, Debian, RPM and OSX are available in the `packages/` folder
+
 ## Template
 
 In NagiosCheckBeat 0.6.0, we have updated to the newest version of libbeat, and the template now installs itself.
