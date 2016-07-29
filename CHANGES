@@ -1,4 +1,5 @@
 0.6.0  
+ - Updated to Elastic Stack 5.x Libbeat.  Provides auto-installing templates, among other great changes.
  - Using new Cookie Cutter framework for Packaging, Docs & Template generation
  - Changed period settings to be a time.Duration variable instead of a parsed STring
  - Updated PublishEvents for libbeat changes (was no longer available in beat.Events.PublishEvents(), moved to client.PublishEvents()
