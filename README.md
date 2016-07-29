@@ -5,13 +5,13 @@ running Nagios checks.    You can integrate with Watcher [(How-To)](https://www.
 
 ![Kibana Screenshot](https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/ss.png)
 
+## Compatibility
+
+NagiosCheckBeat 0.6.0 is meant to be compatible with Elasticsaerch 2.x and higher.   For Elasticsearch 1.x compatibility, see the 0.5.x branch.
+
 ## Template
 
-To apply the ES Template:
-
-```
-curl -XPUT 'http://localhost:9200/_template/nagioscheckbeat' -d@etc/nagioscheckbeat.template.json
-```
+In NagiosCheckBeat 0.6.0, we have updated to the newest version of libbeat, and the template now installs itself.
 
 ## Configuration
 ```
