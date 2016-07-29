@@ -1,0 +1,1 @@
+f056ca3985c63d51abff06b5128507a77a25b305  nagioscheckbeat-0.6.0-windows-x86_64.zip

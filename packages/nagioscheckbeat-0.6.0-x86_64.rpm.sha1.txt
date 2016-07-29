@@ -1,0 +1,1 @@
+c815ba5c72e4c74cfebad0af0950212b16a9a843  nagioscheckbeat-0.6.0-x86_64.rpm
