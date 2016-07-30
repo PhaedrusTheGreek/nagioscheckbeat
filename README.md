@@ -1,7 +1,9 @@
 # NagiosCheckBeat
 
 NagiosCheckBeat is the [Beat](https://www.elastic.co/products/beats) used for
-running Nagios checks.    You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for-self-monitoring-systems) or Nagios Core [(How-To)](https://discuss.elastic.co/t/questions-about-self-monitoring-systems-blog-post/43542/12?u=phaedrusthegreek) for Alerting.
+running Nagios checks.    Check out [this blog post](https://www.elastic.co/blog/a-case-for-self-monitoring-systems) on how it works.
+
+You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for-self-monitoring-systems) or Nagios Core [(How-To)](https://discuss.elastic.co/t/questions-about-self-monitoring-systems-blog-post/43542/12?u=phaedrusthegreek) for Alerting.
 
 ![Kibana Screenshot](https://github.com/PhaedrusTheGreek/nagioscheckbeat/blob/master/ss.png)
 
