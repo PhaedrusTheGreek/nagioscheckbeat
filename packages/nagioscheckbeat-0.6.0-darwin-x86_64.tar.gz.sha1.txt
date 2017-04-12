@@ -1,1 +1,0 @@
-8dbd553e7d3b4245f9fac8e58b25f5da7a486171  nagioscheckbeat-0.6.0-darwin-x86_64.tar.gz
