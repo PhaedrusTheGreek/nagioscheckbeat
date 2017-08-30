@@ -13,9 +13,9 @@ You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for
 
 NagiosCheckBeat 0.6.0 is meant to be compatible with Elasticsaerch 2.x and higher.   For Elasticsearch 1.x compatibility, see the 0.5.x branch.
 
-## Download
+## Download & Install
 
-Packages for Windows, Debian, RPM and OSX are available in the `packages/` folder
+Packages for your OS can be found in [Releases](https://github.com/PhaedrusTheGreek/nagioscheckbeat/releases)
 
 ## Template
 
