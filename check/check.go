@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/nagiosperf"
+	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/mgutz/str"
@@ -56,7 +57,7 @@ func (nagiosCheck *NagiosCheck) Setup(config *config.NagiosCheckConfig) error {
 	return nil
 }
 
-func (nagiosCheck *NagiosCheck) Run(publish func([]common.MapStr)) {
+func (nagiosCheck *NagiosCheck) Run(publish func([]beat.Event)) {
 
 	if !nagiosCheck.enabled {
 		logp.Info("Not starting module %s as not enabled.", nagiosCheck.name)
@@ -78,17 +79,19 @@ func (nagiosCheck *NagiosCheck) Run(publish func([]common.MapStr)) {
 
 }
 
-func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
+func (nagiosCheck *NagiosCheck) Check() (events []beat.Event, err error) {
 
 	startTime := time.Now()
 	startMs := startTime.UnixNano() / int64(time.Millisecond)
 
-	check_event := common.MapStr{
-		"@timestamp": common.Time(startTime),
-		"type":       "nagioscheck",
-		"name":       nagiosCheck.name,
-		"cmd":        nagiosCheck.cmd,
-		"args":       nagiosCheck.args,
+	check_event := beat.Event{
+		Timestamp: startTime,
+		Fields: common.MapStr{
+			"type":       "nagioscheck",
+			"name":       nagiosCheck.name,
+			"cmd":        nagiosCheck.cmd,
+			"args":       nagiosCheck.args,
+		},
 	}
 
 	logp.Debug("nagioscheck", "Running Command: %q", nagiosCheck.cmd)
@@ -114,10 +117,10 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 	logp.Debug("nagioscheck", "Command Returned: %q, exit code %d", output, waitStatus.ExitStatus())
 
 	parts := strings.Split(string(output), "|")
-	check_event["message"] = parts[0]
-	check_event["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
-	check_event["status_code"] = waitStatus.ExitStatus()
-	check_event["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
+	check_event.Fields["message"] = parts[0]
+	check_event.Fields["status"] = nagiosperf.NiceStatus(waitStatus.ExitStatus())
+	check_event.Fields["status_code"] = waitStatus.ExitStatus()
+	check_event.Fields["took_ms"] = time.Now().UnixNano()/int64(time.Millisecond) - startMs
 
 	// publish the check result, even if there is no perf data
 	events = append(events, check_event)
@@ -135,17 +138,19 @@ func (nagiosCheck *NagiosCheck) Check() (events []common.MapStr, err error) {
 
 		for _, perf := range perfs {
 
-			metric_event := common.MapStr{
-				"@timestamp": common.Time(startTime),
-				"type":       "nagiosmetric",
-				"name":       nagiosCheck.name,
-				"label":      perf.Label,
-				"uom":        perf.Uom,
-				"value":      perf.Value,
-				"min":        perf.Min,
-				"max":        perf.Max,
-				"warning":    perf.Warning,
-				"critical":   perf.Critical,
+			metric_event := beat.Event{
+				Timestamp: startTime,
+				Fields: common.MapStr{
+					"type":       "nagiosmetric",
+					"name":       nagiosCheck.name,
+					"label":      perf.Label,
+					"uom":        perf.Uom,
+					"value":      perf.Value,
+					"min":        perf.Min,
+					"max":        perf.Max,
+					"warning":    perf.Warning,
+					"critical":   perf.Critical,
+				},
 			}
 
 			events = append(events, metric_event)

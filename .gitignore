@@ -3,4 +3,5 @@
 .DS_Store
 /nagioscheckbeat
 /nagioscheckbeat.test
+/vendor
 *.pyc
