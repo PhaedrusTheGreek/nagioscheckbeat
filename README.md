@@ -49,7 +49,7 @@ input:
 
 ## Produces
 
-Firstly, the metrics, individually as documents:
+Firstly, the performance data metrics, individually as documents `type: nagiosmetric`:
 
 ```
 {
@@ -126,7 +126,7 @@ Firstly, the metrics, individually as documents:
 }
 ```
 
-Secondly, the results of the actual Nagios Checks, as a separate *type*
+Secondly, the results of the actual Nagios Checks, where `type: nagioscheck`
 
 ```
 {
