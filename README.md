@@ -11,7 +11,9 @@ You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for
 
 ## Compatibility
 
-NagiosCheckBeat 0.6.0 is meant to be compatible with Elasticsaerch 2.x and higher.   For Elasticsearch 1.x compatibility, see the 0.5.x branch.
+- For Elasticsearch 1.x compatibility, see the 0.5.x branch.
+- NagiosCheckBeat 0.6.0 is meant to be compatible with Elasticsaerch 2.x through 5.x.   
+- NagiosCheckbeat 6.2.2 is meant to be compatible with Elastic Stack 6.x
 
 ## Download & Install
 
@@ -19,7 +21,7 @@ Packages for your OS can be found in [Releases](https://github.com/PhaedrusTheGr
 
 ## Template
 
-In NagiosCheckBeat 0.6.0, we have updated to the newest version of libbeat, and the template now installs itself.
+As of NagiosCheckBeat 0.6.0, we have updated to the newest version of libbeat, and the template now installs itself.
 
 ## Configuration
 ```
@@ -68,7 +70,7 @@ Firstly, the metrics, individually as documents:
       "hits": [
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqbx",
             "_score": 1,
             "_source": {
@@ -91,7 +93,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqby",
             "_score": 1,
             "_source": {
@@ -114,7 +116,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqbz",
             "_score": 1,
             "_source": {
@@ -137,7 +139,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqb0",
             "_score": 1,
             "_source": {
@@ -160,7 +162,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqb2",
             "_score": 1,
             "_source": {
@@ -183,7 +185,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7bepWMO5Jb2lqb3",
             "_score": 1,
             "_source": {
@@ -206,7 +208,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7bepWMO5Jb2lqb4",
             "_score": 1,
             "_source": {
@@ -229,7 +231,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7pTpWMO5Jb2lqb6",
             "_score": 1,
             "_source": {
@@ -252,7 +254,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7pTpWMO5Jb2lqb7",
             "_score": 1,
             "_source": {
@@ -275,7 +277,7 @@ Firstly, the metrics, individually as documents:
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagiosmetric",
+            "_type": "doc",
             "_id": "AVH0P7pTpWMO5Jb2lqb8",
             "_score": 1,
             "_source": {
@@ -318,7 +320,7 @@ Secondly, the results of the actual Nagios Checks, as a separate *type*
       "hits": [
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagioscheck",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqbv",
             "_score": 1,
             "_source": {
@@ -338,7 +340,7 @@ Secondly, the results of the actual Nagios Checks, as a separate *type*
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagioscheck",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqbw",
             "_score": 1,
             "_source": {
@@ -358,7 +360,7 @@ Secondly, the results of the actual Nagios Checks, as a separate *type*
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagioscheck",
+            "_type": "doc",
             "_id": "AVH0P7bdpWMO5Jb2lqb1",
             "_score": 1,
             "_source": {
@@ -378,7 +380,7 @@ Secondly, the results of the actual Nagios Checks, as a separate *type*
          },
          {
             "_index": "nagioscheckbeat-2015.12.30",
-            "_type": "nagioscheck",
+            "_type": "doc",
             "_id": "AVH0P7pTpWMO5Jb2lqb5",
             "_score": 1,
             "_source": {
