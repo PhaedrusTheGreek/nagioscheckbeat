@@ -19,10 +19,6 @@ You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for
 
 Packages for your OS can be found in [Releases](https://github.com/PhaedrusTheGreek/nagioscheckbeat/releases)
 
-## Template
-
-As of NagiosCheckBeat 0.6.0, we have updated to the newest version of libbeat, and the template now installs itself.
-
 ## Configuration
 ```
 ############################# Input ############################################
