@@ -236,7 +236,7 @@ Secondly, the results of the actual Nagios Checks, as a separate *type*
           "@timestamp": "2018-02-20T17:41:14.956Z",
           "name": "disks",
           "cmd": "/usr/local/sbin/check_disk",
-          "message": "DISK CRITICAL - /Users/jason/Private-Personal is not accessible: No such file or directory\n",
+          "message": "DISK CRITICAL - /Users/jason/OBFUSCATED is not accessible: No such file or directory\n",
           "beat": {
             "name": "Jasons-MacBook-Pro-912.local",
             "hostname": "Jasons-MacBook-Pro-912.local",
