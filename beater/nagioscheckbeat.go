@@ -6,7 +6,6 @@ import (
 	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/elastic/beats/libbeat/publisher"
 
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/check"
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
@@ -15,7 +14,7 @@ import (
 type Nagioscheckbeat struct {
 	done   chan struct{}
 	config config.Config
-	client publisher.Client
+	client beat.Client
 }
 
 // Creates beater
@@ -32,17 +31,23 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 	return bt, nil
 }
 
+// Beat.Publisher is a called pipeline and is an instance of beat.Pipeline,
+
 func (bt *Nagioscheckbeat) Run(b *beat.Beat) error {
 	logp.Info("nagioscheckbeat is running! Hit CTRL-C to stop it.")
 
-	bt.client = b.Publisher.Connect()
+	var err error
+	bt.client, err = b.Publisher.Connect()
+	if err != nil {
+		return err
+	}
 
 	for _, checkConfig := range bt.config.Checks {
 
 		checkInstance := check.NagiosCheck{}
 		checkInstance.Setup(&checkConfig)
-		go checkInstance.Run(func(events []common.MapStr) {
-			bt.client.PublishEvents(events)
+		go checkInstance.Run(func(events []beat.Event) {
+			bt.client.PublishAll(events)
 		})
 
 	}

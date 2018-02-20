@@ -6,8 +6,8 @@ package check
 
 import (
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/config"
-	"github.com/elastic/beats/libbeat/common"
-	"github.com/elastic/beats/libbeat/logp"
+	"github.com/elastic/beats/libbeat/beat"
+	// "github.com/elastic/beats/libbeat/logp"
 	"strings"
 	"testing"
 	"time"
@@ -15,7 +15,7 @@ import (
 
 func TestCheck(t *testing.T) {
 
-	logp.LogInit(logp.LOG_DEBUG, "", false, true, []string{"*"})
+	// logp.LogInit(logp.LOG_DEBUG, "", false, true, []string{"*"})
 
 	/*
 		1st Check, makes sure command runs and returns OK
@@ -37,8 +37,8 @@ func TestCheck(t *testing.T) {
 
 	// [{"@timestamp":"2016-01-10T05:40:19.738Z","args":"0 hello","cmd":"/usr/local/sbin/check_dummy","message":"OK: hello\n","status":"OK","took_ms":6,"type":"nagioscheck"}]
 
-	var event common.MapStr = got[0]
-	var message = event["message"].(string)
+	var event beat.Event = got[0]
+	var message = event.Fields["message"].(string)
 	if strings.Compare(message, "OK: hello\n") != 0 {
 		t.Errorf("Expected 'OK: hello\\n', and got %q", message)
 	}

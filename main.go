@@ -2,15 +2,11 @@ package main
 
 import (
 	"os"
-
-	"github.com/elastic/beats/libbeat/beat"
-
-	"github.com/PhaedrusTheGreek/nagioscheckbeat/beater"
+	"github.com/PhaedrusTheGreek/nagioscheckbeat/cmd"
 )
 
 func main() {
-	err := beat.Run("nagioscheckbeat", "", beater.New)
-	if err != nil {
+	if err := cmd.RootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 }
