@@ -19,6 +19,12 @@ You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for
 
 Packages for your OS can be found in [Releases](https://github.com/PhaedrusTheGreek/nagioscheckbeat/releases)
 
+For example, in an i686 architecture:
+
+```
+$ sudo rpm -i https://github.com/PhaedrusTheGreek/nagioscheckbeat/releases/download/6.2.3/nagioscheckbeat-6.2.3-i686.rpm
+```
+
 ## Configuration
 ```
 ############################# Input ############################################
