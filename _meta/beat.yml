@@ -1,0 +1,7 @@
+################### Nagioscheckbeat Configuration Example #########################
+
+############################# Nagioscheckbeat ######################################
+
+nagioscheckbeat:
+  # Defines how often an event is sent to the output
+  period: 1s

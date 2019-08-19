@@ -1,7 +1,8 @@
+/.idea
 /build
+/vendor
 
 .DS_Store
 /nagioscheckbeat
 /nagioscheckbeat.test
-/vendor
 *.pyc
