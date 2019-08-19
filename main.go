@@ -4,8 +4,6 @@ import (
 	"os"
 
 	"github.com/PhaedrusTheGreek/nagioscheckbeat/cmd"
-
-	_ "github.com/PhaedrusTheGreek/nagioscheckbeat/include"
 )
 
 func main() {
