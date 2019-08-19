@@ -2,7 +2,6 @@ package beater
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/common"
