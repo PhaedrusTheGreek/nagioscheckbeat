@@ -1,5 +1,0 @@
-= Nagioscheckbeat Docs
-
-Welcome to the Nagioscheckbeat documentation.
-
-

@@ -1,4 +1,0 @@
-beat_name: nagioscheckbeat
-beat_url: 'https://github.com/PhaedrusTheGreek/nagioscheckbeat'
-beat_repo: 'github.com/PhaedrusTheGreek/nagioscheckbeat'
-beat_description: Sends nagioscheckbeat metrics to Logstash or directly to Elasticsearch.

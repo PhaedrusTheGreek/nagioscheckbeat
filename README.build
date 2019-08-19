@@ -1,7 +1,0 @@
-
-```
-make setup
-make 
-make package-setup
-export SNAPSHOT=no; make package
-```

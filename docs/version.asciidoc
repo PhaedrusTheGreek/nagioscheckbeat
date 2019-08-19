@@ -1,2 +1,0 @@
-:stack-version: 5.0.0-alpha4
-:doc-branch: master
