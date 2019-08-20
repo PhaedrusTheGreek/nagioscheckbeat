@@ -3,5 +3,9 @@
 ############################# Nagioscheckbeat ######################################
 
 nagioscheckbeat:
-  # Defines how often an event is sent to the output
-  period: 1s
+   checks:
+    -
+      name: "heartbeat"
+      cmd: "/usr/lib64/nagios/plugins/check_dummy"
+      args: "0 Checking In!"
+      period: "10s"
