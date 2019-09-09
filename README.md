@@ -15,6 +15,14 @@ You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for
 - NagiosCheckBeat 0.6.0 is compatible with Elasticsaerch 2.x through 5.x.   
 - NagiosCheckbeat 6.2.3 is compatible with Elastic Stack 6.x 
 
+## Security
+
+- As of NagiosCheckBeat 7.x, process forking must be explicitly allowed by disabling seccomp.  Do note the security hazard here!  Keep your config secure!  
+
+```
+seccomp.enabled: false
+```
+
 ## Download & Install
 
 Packages for your OS can be found in [Releases](https://github.com/PhaedrusTheGreek/nagioscheckbeat/releases)

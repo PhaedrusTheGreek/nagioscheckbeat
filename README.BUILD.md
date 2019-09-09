@@ -17,6 +17,6 @@ git checkout 7.x
 
 ```
 make setup
-make 
+mage build 
 make release
 ```

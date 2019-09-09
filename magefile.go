@@ -34,6 +34,7 @@ func init() {
 	devtools.SetBuildVariableSources(devtools.DefaultBeatBuildVariableSources)
 
 	devtools.BeatDescription = "One sentence description of the Beat."
+        devtools.BeatVendor = "PhaedrusTheGreek"
 }
 
 // Build builds the Beat binary.
@@ -114,3 +115,4 @@ func GoTestIntegration(ctx context.Context) error {
 func Config() error {
         return devtools.Config(devtools.AllConfigTypes, devtools.ConfigFileParams{}, ".")
 }
+
