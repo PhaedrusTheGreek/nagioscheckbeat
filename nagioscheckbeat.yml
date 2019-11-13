@@ -77,8 +77,11 @@ output.elasticsearch:
   # Array of hosts to connect to.
   hosts: ["localhost:9200"]
 
-  # Optional protocol and basic auth credentials.
+  # Protocol - either `http` (default) or `https`.
   #protocol: "https"
+
+  # Authentication credentials - either API key or username/password.
+  #api_key: "id:api_key"
   #username: "elastic"
   #password: "changeme"
 
@@ -104,6 +107,7 @@ output.elasticsearch:
 processors:
   - add_host_metadata: ~
   - add_cloud_metadata: ~
+  - add_docker_metadata: ~
 
 #================================ Logging =====================================
 
@@ -116,7 +120,7 @@ processors:
 # "publish", "service".
 #logging.selectors: ["*"]
 
-#============================== Xpack Monitoring ===============================
+#============================== X-Pack Monitoring ===============================
 # nagioscheckbeat can export internal metrics to a central Elasticsearch monitoring
 # cluster.  This requires xpack monitoring to be enabled in Elasticsearch.  The
 # reporting is disabled by default.
