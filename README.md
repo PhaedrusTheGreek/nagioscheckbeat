@@ -14,6 +14,7 @@ You can integrate with Watcher [(How-To)](https://www.elastic.co/blog/a-case-for
 - For Elasticsearch 1.x compatibility, see the 0.5.x branch.
 - NagiosCheckBeat 0.6.0 is compatible with Elasticsaerch 2.x through 5.x.   
 - NagiosCheckbeat 6.2.3 is compatible with Elastic Stack 6.x 
+- NagiosCheckBeat 7.6.0 is compatible with Elastic Stack 7.x
 
 ## Security
 
